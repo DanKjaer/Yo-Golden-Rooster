@@ -4,6 +4,11 @@ public class Category {
     private int Id;
     private String Name;
 
+    public Category(int id, String name) {
+        Id = id;
+        Name = name;
+    }
+
     public int getId() {
         return Id;
     }

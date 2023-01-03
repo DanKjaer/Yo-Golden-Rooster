@@ -9,6 +9,14 @@ public class Movie {
     private String Filelink;
     private Date Lastview;
 
+    public Movie(int id, String name, double rating, String filelink, Date lastview) {
+        Id = id;
+        Name = name;
+        Rating = rating;
+        Filelink = filelink;
+        Lastview = lastview;
+    }
+
     public int getId() {
         return Id;
     }
