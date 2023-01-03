@@ -3,59 +3,61 @@ package BE;
 import java.util.Date;
 
 public class Movie {
-    private int Id;
-    private String Name;
-    private double Rating;
-    private String Filelink;
-    private Date Lastview;
+    private int id;
+    private String name;
+    private double rating;
+    private double personalRating;
+    private String filelink;
+    private Date lastview;
 
-    public Movie(int id, String name, double rating, String filelink, Date lastview) {
-        Id = id;
-        Name = name;
-        Rating = rating;
-        Filelink = filelink;
-        Lastview = lastview;
+    public Movie(int id, String name, double rating, double personalRating, String filelink, Date lastview) {
+        this.id = id;
+        this.name = name;
+        this.rating = rating;
+        this.personalRating = personalRating;
+        this.filelink = filelink;
+        this.lastview = lastview;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public double getRating() {
-        return Rating;
+        return personalRating;
     }
 
-    public void setRating(double rating) {
-        Rating = rating;
+    public void setRating(double personalRating) {
+        Movie.this.personalRating = personalRating;
     }
 
     public String getFilelink() {
-        return Filelink;
+        return filelink;
     }
 
     public void setFilelink(String filelink) {
         if (filelink.endsWith(".mp4") || filelink.endsWith(".mpeg4")) {
-            Filelink = filelink;
+            this.filelink = filelink;
         }
     }
 
     public Date getLastview() {
-        return Lastview;
+        return lastview;
     }
 
     public void setLastview(Date lastview) {
-        Lastview = lastview;
+        this.lastview = lastview;
     }
 }
