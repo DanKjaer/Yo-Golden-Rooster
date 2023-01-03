@@ -46,7 +46,9 @@ public class Movie {
     }
 
     public void setFilelink(String filelink) {
-        Filelink = filelink;
+        if (filelink.endsWith(".mp4") || filelink.endsWith(".mpeg4")) {
+            Filelink = filelink;
+        }
     }
 
     public Date getLastview() {
