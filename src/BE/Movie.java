@@ -8,4 +8,44 @@ public class Movie {
     private double Rating;
     private String Filelink;
     private Date Lastview;
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public double getRating() {
+        return Rating;
+    }
+
+    public void setRating(double rating) {
+        Rating = rating;
+    }
+
+    public String getFilelink() {
+        return Filelink;
+    }
+
+    public void setFilelink(String filelink) {
+        Filelink = filelink;
+    }
+
+    public Date getLastview() {
+        return Lastview;
+    }
+
+    public void setLastview(Date lastview) {
+        Lastview = lastview;
+    }
 }
