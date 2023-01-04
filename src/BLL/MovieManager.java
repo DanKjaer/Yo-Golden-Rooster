@@ -1,5 +1,12 @@
 package BLL;
 
+
+import BE.Movie;
+
+public class MovieManager {
+    public Movie getMovies() {
+        return null;
+
 import BE.Category;
 import BE.Movie;
 import DAL.DB.CategoryDAO;
@@ -29,5 +36,6 @@ public class MovieManager {
 
     public Category getCategories() {
         return categoryDAO.getCategories();
+
     }
 }
