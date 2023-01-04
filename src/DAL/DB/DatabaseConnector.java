@@ -78,14 +78,21 @@ public class DatabaseConnector {
         return password;
     }
 
+    /**
+     * Test main to check if the connector works.
+     * @param args
+     * @throws SQLException
+     * @throws IOException
+     */
     public static void main(String[] args) throws SQLException, IOException {
-
+        //Create instance of connector
         DatabaseConnector databaseConnector = new DatabaseConnector();
 
+        //Use Try with resources, the parenthesis is the resource, to establish connection and then check if it works.
         try (Connection connection = databaseConnector.getConnection()) {
 
             System.out.println("Is it open? " + !connection.isClosed());
 
-        } //Connection gets closed here
+        }
     }
 }
