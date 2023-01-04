@@ -27,4 +27,13 @@ public class MovieManager {
         return categoryDAO.getCategories();
 
     }
+    
+    public Movie createMovie(String name, String fileLink) throws Exception {
+        return movieDAO.createMovie(name, fileLink);
+    }
+
+    public void reMovie(Movie removedMovie) throws Exception{
+        movieDAO.reMovie(removedMovie);
+    }
 }
+

@@ -5,18 +5,18 @@ import java.util.Date;
 public class Movie {
     private int id;
     private String name;
-    private double rating;
-    private double personalRating;
+    //private double rating;
+    //private double personalRating;
     private String filelink;
-    private Date lastview;
+    //private Date lastview;
 
-    public Movie(int id, String name, double rating, double personalRating, String filelink, Date lastview) {
+    public Movie(int id, String name, String filelink) {
         this.id = id;
         this.name = name;
-        this.rating = rating;
-        this.personalRating = personalRating;
+        //this.rating = rating;
+        //this.personalRating = personalRating;
         this.filelink = filelink;
-        this.lastview = lastview;
+        //this.lastview = lastview;
     }
 
     public int getId() {
@@ -35,14 +35,6 @@ public class Movie {
         this.name = name;
     }
 
-    public double getRating() {
-        return personalRating;
-    }
-
-    public void setRating(double personalRating) {
-        Movie.this.personalRating = personalRating;
-    }
-
     public String getFilelink() {
         return filelink;
     }
@@ -53,11 +45,20 @@ public class Movie {
         }
     }
 
+    /**public double getRating() {
+        return personalRating;
+    }
+
+    public void setRating(double personalRating) {
+        Movie.this.personalRating = personalRating;
+    }
+
+
     public Date getLastview() {
         return lastview;
     }
 
     public void setLastview(Date lastview) {
         this.lastview = lastview;
-    }
+    }*/
 }
