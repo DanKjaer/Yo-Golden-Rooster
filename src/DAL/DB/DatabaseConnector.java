@@ -27,6 +27,11 @@ public class DatabaseConnector {
         return dataSource.getConnection();
     }
 
+    /**
+     * Gets the server IP from the config file.
+     * @return - returns server IP as String.
+     * @throws IOException
+     */
     private String getServer() throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream("src/config.properties");
@@ -35,6 +40,11 @@ public class DatabaseConnector {
         return server;
     }
 
+    /**
+     * Gets the database name from the config file.
+     * @return - returns database name as String.
+     * @throws IOException
+     */
     private String getDatabase() throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream("src/config.properties");
@@ -43,6 +53,11 @@ public class DatabaseConnector {
         return database;
     }
 
+    /**
+     * Gets the username from the config file.
+     * @return - returns username as String.
+     * @throws IOException
+     */
     private String getUsername() throws IOException {
         Properties properties = new Properties();
         FileInputStream fileInputStream = new FileInputStream("src/config.properties");
@@ -73,7 +88,5 @@ public class DatabaseConnector {
             System.out.println("Is it open? " + !connection.isClosed());
 
         } //Connection gets closed here
-
-        System.out.println(databaseConnector.getPassword());
     }
 }
