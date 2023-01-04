@@ -4,7 +4,6 @@ import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -34,7 +33,7 @@ public class DatabaseConnector {
      */
     private String getServer() throws IOException {
         Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("src/config.properties");
+        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
         properties.load(fileInputStream);
         String server = properties.getProperty("ServerIP");
         return server;
@@ -47,7 +46,7 @@ public class DatabaseConnector {
      */
     private String getDatabase() throws IOException {
         Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("src/config.properties");
+        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
         properties.load(fileInputStream);
         String database = properties.getProperty("DB");
         return database;
@@ -60,7 +59,7 @@ public class DatabaseConnector {
      */
     private String getUsername() throws IOException {
         Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("src/config.properties");
+        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
         properties.load(fileInputStream);
         String username = properties.getProperty("Username");
         return username;
@@ -73,7 +72,7 @@ public class DatabaseConnector {
      */
     private String getPassword() throws IOException {
         Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("src/config.properties");
+        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
         properties.load(fileInputStream);
         String password = properties.getProperty("Password");
         return password;
