@@ -90,9 +90,7 @@ public class DatabaseConnector {
 
         //Use Try with resources, the parenthesis is the resource, to establish connection and then check if it works.
         try (Connection connection = databaseConnector.getConnection()) {
-
             System.out.println("Is it open? " + !connection.isClosed());
-
         }
     }
 }
