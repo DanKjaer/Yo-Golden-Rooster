@@ -1,13 +1,19 @@
 package DAL.DB;
 
 import BE.Category;
+
+import java.io.IOException;
 import java.sql.*;
 
 public class CategoryDAO implements ICategoryDatabaseAccess{
     private DatabaseConnector dbcon;
 
+    public CategoryDAO() throws IOException {
+        dbcon = new DatabaseConnector();
+    }
+
     public Category createCategory(String category) throws Exception {
-        String sql = "INSERT INTO Category (category) VALUES (?);";
+        String sql = "INSERT INTO Category (name) VALUES (?);";
         int id = 0;
 
         try(Connection con = dbcon.getConnection()) {

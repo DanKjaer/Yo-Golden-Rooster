@@ -5,9 +5,15 @@ import BE.Category;
 import BLL.MovieManager;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
+
 public class CategoryModel {
     private ObservableList<Category> mCategory;
     private MovieManager mManager;
+
+    public CategoryModel() throws IOException {
+        mManager = new MovieManager();
+    }
 
     public void createCategory(String category) throws Exception {
         Category c = mManager.createCategory(category);

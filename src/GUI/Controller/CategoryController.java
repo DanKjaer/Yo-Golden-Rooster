@@ -20,6 +20,7 @@ public class CategoryController extends BaseController{
     @Override
     public void setUp() {
         categoryModel = getModel().getCategoryModel();
+
     }
 
     public void handleAdd(ActionEvent actionEvent) {

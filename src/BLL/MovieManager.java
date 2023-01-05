@@ -2,18 +2,21 @@ package BLL;
 
 import BE.Category;
 import BE.Movie;
+import DAL.DB.CategoryDAO;
 import DAL.DB.ICategoryDatabaseAccess;
 import DAL.DB.IMovieDatabaseAccess;
 import DAL.DB.MovieDAO;
 
+import java.io.IOException;
 import java.util.List;
 public class MovieManager {
 
     private ICategoryDatabaseAccess categoryDAO;
     private IMovieDatabaseAccess movieDAO;
 
-    public MovieManager() {
+    public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
+        categoryDAO = new CategoryDAO();
     }
 
     public List<Movie> getMovies() throws Exception{
