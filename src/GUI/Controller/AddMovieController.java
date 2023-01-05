@@ -11,9 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public class AddMovieController {
+public class AddMovieController extends BaseController {
 
     private AddMovieModel aMM;
+
     @FXML
     private Button btnSave, btnChoose, btnCancel;
     @FXML
@@ -23,6 +24,10 @@ public class AddMovieController {
     @FXML
     private ListView lstCategory;
 
+    @Override
+    public void setUp() {
+
+    }
     public void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
@@ -41,6 +46,8 @@ public class AddMovieController {
     public void handleCancel(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
+        cancel(btnCancel);
+
     }
     //FileChooser enables the choose button to open a local filepath.
     public void handleChoose(ActionEvent actionEvent) {
@@ -49,4 +56,5 @@ public class AddMovieController {
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }
+
 }

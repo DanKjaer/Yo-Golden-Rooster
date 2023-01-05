@@ -1,4 +1,5 @@
 package BLL;
+
 import BE.Category;
 import BE.Movie;
 import DAL.DB.CategoryDAO;
@@ -6,8 +7,6 @@ import DAL.DB.ICategoryDatabaseAccess;
 import DAL.DB.IMovieDatabaseAccess;
 import java.util.List;
 public class MovieManager {
-
-
 
     private ICategoryDatabaseAccess categoryDAO;
     private IMovieDatabaseAccess movieDAO;

@@ -1,19 +1,38 @@
 package DAL.DB;
 
 import BE.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class MovieDAO {
+public class MovieDAO implements IMovieDatabaseAccess {
 
     private DatabaseConnector dbCon;
 
+    public MovieDAO() throws IOException {
+        dbCon = new DatabaseConnector();
+    }
 
+    @Override
+    public List<Movie> getMovies() throws SQLException {
 
+        //Make a list called allMovies, to store movies in, and return in the end
+        ArrayList<Movie> allMovies = new ArrayList<>();
 
+        //Try with resources to connect to DB
+        try (Connection conn = dbCon.getConnection()){
+
+        } catch (Exception e){
+            throw e;
+        }
+        return null;
+    }
 
     public Movie createMovie(String name, String fileLink) throws Exception{
         String sql = "INSERT INTO Movie (name, fileLink)VALUES (?,?);";
@@ -50,6 +69,7 @@ public class MovieDAO {
             e.printStackTrace();
             throw new Exception("Could not delete movie", e);
         }
-
     }
+
+
 }
