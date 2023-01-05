@@ -15,7 +15,7 @@ public class Main extends Application {
 
         PmcController controller = loader.getController();
         controller.setModel(new PmcModel());
-        controller.setUp();
+        controller.setup();
 
         primaryStage.setTitle("Private Movie Collection");
         primaryStage.setScene(new Scene(root));

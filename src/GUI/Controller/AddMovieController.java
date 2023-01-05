@@ -15,7 +15,7 @@ public class AddMovieController extends BaseController {
     private ListView lstCategory;
 
     @Override
-    public void setUp() {
+    public void setup() {
 
     }
     public void handleSave(ActionEvent actionEvent) {

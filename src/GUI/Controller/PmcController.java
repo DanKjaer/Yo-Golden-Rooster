@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,7 +39,8 @@ public class PmcController extends BaseController {
     private PmcModel pmcModel;
 
     @Override
-    public void setUp() {
+    public void setup() {
+        updateMovieList();
     }
 
     @FXML
@@ -51,7 +53,7 @@ public class PmcController extends BaseController {
 
             AddMovieController controller = loader.getController();
             controller.setModel(super.getModel());
-            controller.setUp();
+            controller.setup();
 
             stage.setScene(new Scene(pane));
             stage.setTitle("Add Movie");
@@ -62,10 +64,12 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
+        updateMovieList();
     }
 
     @FXML
     private void handleDelete(ActionEvent actionEvent) {
+        updateMovieList();
     }
 
     @FXML
@@ -78,7 +82,7 @@ public class PmcController extends BaseController {
 
             CategoryController controller = loader.getController();
             controller.setModel(super.getModel());
-            controller.setUp();
+            controller.setup();
 
             stage.setScene(new Scene(pane));
             stage.setTitle("Category");
@@ -89,7 +93,6 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -105,6 +108,14 @@ public class PmcController extends BaseController {
     }
 
     private void updateMovieList(){
-        pmcModel = getModel().
+        pmcModel = getModel();
+
+        clnTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        clnCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
+        clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("PersonalRating"));
+        clnLastView.setCellValueFactory(new PropertyValueFactory<>("LastView"));
+
+        lstMovie.getColumns().addAll();
+        lstMovie.setItems(pmcModel.getObservableMovies());
     }
 }

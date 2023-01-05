@@ -18,7 +18,7 @@ public class CategoryController extends BaseController{
     private CategoryModel categoryModel;
 
     @Override
-    public void setUp() {
+    public void setup() {
         categoryModel = getModel().getCategoryModel();
 
     }
