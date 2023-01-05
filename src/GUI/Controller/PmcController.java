@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.Movie;
 import GUI.Model.PmcModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class PmcController extends BaseController {
 
@@ -26,7 +29,9 @@ public class PmcController extends BaseController {
     @FXML
     private TableView lstMovie;
     @FXML
-    private TableColumn clnTitle, clnCategory, clnPersonalRating, clnLastView;
+    private TableColumn clnTitle, clnCategory, clnLastView;
+    @FXML
+    private TableColumn clnPersonalRating;
     @FXML
     private Button btnPlay, btnRate, btnCategory, btnDelete, btnAdd;
     @FXML
@@ -38,7 +43,8 @@ public class PmcController extends BaseController {
     private PmcModel pmcModel;
 
     @Override
-    public void setUp() {
+    public void setup() {
+        updateMovieList();
     }
 
     @FXML
@@ -51,7 +57,7 @@ public class PmcController extends BaseController {
 
             AddMovieController controller = loader.getController();
             controller.setModel(super.getModel());
-            controller.setUp();
+            controller.setup();
 
             stage.setScene(new Scene(pane));
             stage.setTitle("Add Movie");
@@ -62,10 +68,12 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
+        updateMovieList();
     }
 
     @FXML
     private void handleDelete(ActionEvent actionEvent) {
+        updateMovieList();
     }
 
     @FXML
@@ -78,7 +86,7 @@ public class PmcController extends BaseController {
 
             CategoryController controller = loader.getController();
             controller.setModel(super.getModel());
-            controller.setUp();
+            controller.setup();
 
             stage.setScene(new Scene(pane));
             stage.setTitle("Category");
@@ -89,7 +97,6 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -102,5 +109,17 @@ public class PmcController extends BaseController {
 
     @FXML
     private void handleRate(ActionEvent actionEvent) {
+    }
+
+    private void updateMovieList(){
+        pmcModel = getModel();
+
+        clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        //clnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
+
+        lstMovie.getColumns().addAll();
+        lstMovie.setItems(pmcModel.getObservableMovies());
     }
 }

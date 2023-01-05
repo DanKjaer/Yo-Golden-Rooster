@@ -26,9 +26,10 @@ public class AddMovieController extends BaseController {
     private ListView lstCategory;
 
     @Override
-    public void setUp() throws Exception {
+    public void setup() throws Exception {
         aMM = new AddMovieModel();
         lstCategory.setItems((ObservableList) aMM.getCategories());
+
 
     }
     public void handleSave(ActionEvent actionEvent) {

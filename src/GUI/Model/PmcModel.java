@@ -15,8 +15,8 @@ public class PmcModel {
         categoryModel = new CategoryModel();
         mManager = new MovieManager();
 
-        //moviesToBeViewed = FXCollections.observableArrayList();
-        //moviesToBeViewed.addAll(mManager.getMovies());
+        moviesToBeViewed = FXCollections.observableArrayList();
+        moviesToBeViewed.addAll(mManager.getMovies());
     }
 
     public ObservableList<Movie> getObservableMovies(){
