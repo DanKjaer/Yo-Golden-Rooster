@@ -38,7 +38,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String filelink = rs.getString("filelink");
-                String rating = String.valueOf(rs.getFloat("rating"));
+                float rating = rs.getFloat("rating");
                 Date lastview = rs.getDate("lastview");
 
                 //Create Movie and add to list created in the beginning
