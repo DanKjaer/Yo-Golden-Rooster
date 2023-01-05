@@ -14,7 +14,6 @@ public class AddMovieController extends BaseController {
     @FXML
     private ListView lstCategory;
 
-
     @Override
     public void setUp() {
 

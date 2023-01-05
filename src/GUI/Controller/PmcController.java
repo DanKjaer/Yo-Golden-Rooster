@@ -39,10 +39,10 @@ public class PmcController extends BaseController {
 
     @Override
     public void setUp() {
-
     }
 
-    public void handleAdd(ActionEvent actionEvent) {
+    @FXML
+    private void handleAdd(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddMovieView.fxml"));
@@ -64,10 +64,12 @@ public class PmcController extends BaseController {
         }
     }
 
-    public void handleDelete(ActionEvent actionEvent) {
+    @FXML
+    private void handleDelete(ActionEvent actionEvent) {
     }
 
-    public void handleEditCategory(ActionEvent actionEvent) {
+    @FXML
+    private void handleEditCategory(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
@@ -90,13 +92,15 @@ public class PmcController extends BaseController {
 
     }
 
-    public void handleSearch(InputMethodEvent inputMethodEvent) {
+    @FXML
+    private void handleSearch(InputMethodEvent inputMethodEvent) {
     }
 
-    public void handlePlay(ActionEvent actionEvent) {
+    @FXML
+    private void handlePlay(ActionEvent actionEvent) {
     }
 
-    public void handleRate(ActionEvent actionEvent) {
+    @FXML
+    private void handleRate(ActionEvent actionEvent) {
     }
-
 }

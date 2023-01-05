@@ -26,4 +26,16 @@ public class PmcModel {
     public CategoryModel getCategoryModel() {
         return categoryModel;
     }
+
+    public void createMovie(String name, String fileLink) throws Exception{
+        Movie m = mManager.createMovie(name, fileLink);
+
+        moviesToBeViewed.add(m);
+    }
+    public void reMovie(Movie removedMovie) throws Exception {
+        mManager.reMovie(removedMovie);
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(mManager.getMovies());
+    }
+
 }
