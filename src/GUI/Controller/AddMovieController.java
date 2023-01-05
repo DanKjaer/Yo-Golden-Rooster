@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import GUI.Model.AddMovieModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,13 +26,15 @@ public class AddMovieController extends BaseController {
     private ListView lstCategory;
 
     @Override
-    public void setUp() {
+    public void setUp() throws Exception {
+        aMM = new AddMovieModel();
+        lstCategory.setItems((ObservableList) aMM.getCategories());
 
     }
     public void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
-        String category = lstCategory.getSelectionModel().getSelectedItems();
+        String category = lstCategory.getSelectionModel().getSelectedItems().toString();
 
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();

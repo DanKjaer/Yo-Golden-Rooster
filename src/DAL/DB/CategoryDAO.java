@@ -1,21 +1,54 @@
 package DAL.DB;
 
 import BE.Category;
+import BE.Movie;
+
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CategoryDAO {
+public class CategoryDAO implements ICategoryDatabaseAccess {
 
-    private DatabaseConnector dbcon;
+    private DatabaseConnector dbCon;
+    public CategoryDAO() throws IOException {
+        dbCon = new DatabaseConnector();
+    }
+
+    public List<Category> getCategories() throws SQLException {
+
+        //Make a list called allCategories, to store categories in, and return in the end
+        ArrayList<Category> allCategories = new ArrayList<>();
+
+        //Try with resources to connect to DB
+        try (Connection conn = dbCon.getConnection()){
+
+            String sql = "SELECT * FROM Category;";
+
+            Statement statement = conn.createStatement();
+            ResultSet rSet = statement.executeQuery(sql);
+
+            while(rSet.next()){
+                int id = rSet.getInt("id");
+                String name = rSet.getString("Name");
+
+                Category category = new Category(id, name);
+                allCategories.add(category);
+            }
+            return allCategories;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
 
-
-    public Category createCategory(String category) throws Exception {
+    public Category createCategory(String category) throws SQLException {
         String sql = "INSERT INTO Category (category) VALUES (?);";
         int id = 0;
 
-        try(Connection con = dbcon.getConnection()) {
+        try(Connection con = dbCon.getConnection()) {
             PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             statement.setString(1, category);
@@ -29,14 +62,14 @@ public class CategoryDAO {
         }
         catch(SQLException e){
             e.printStackTrace();
-            throw new Exception("Could not create category");
+            throw new SQLException("Could not create category");
         }
         Category mCat = new Category(id, category);
         return mCat;
 
     }
-    public void removeCategory(Category category) throws Exception {
-        try(Connection con = dbcon.getConnection()){
+    public void removeCategory(Category category) throws SQLException {
+        try(Connection con = dbCon.getConnection()){
             String sql = "DELETE FROM Category WHERE id = ?;";
             PreparedStatement statement = con.prepareStatement(sql);
 
@@ -46,7 +79,7 @@ public class CategoryDAO {
         }
         catch (SQLException e){
             e.printStackTrace();
-            throw new Exception("Could not remove Category", e);
+            throw new SQLException("Could not remove Category", e);
         }
     }
 

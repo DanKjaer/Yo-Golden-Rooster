@@ -17,7 +17,7 @@ public abstract class BaseController {
         return model;
     }
 
-    public abstract void setUp();
+    public abstract void setUp() throws Exception;
 
     public void displayError(Throwable t) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

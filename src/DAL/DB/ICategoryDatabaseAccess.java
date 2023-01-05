@@ -2,11 +2,14 @@ package DAL.DB;
 
 import BE.Category;
 
+import java.sql.SQLException;
+import java.util.List;
+
 public interface ICategoryDatabaseAccess {
-    public Category CreateCategory(String category);
+    Category createCategory(String category) throws SQLException;
 
-    public void removeCategory(Category category);
+    void removeCategory(Category category) throws SQLException;
 
-    Category getCategories();
+    List<Category> getCategories() throws SQLException;
 
 }
