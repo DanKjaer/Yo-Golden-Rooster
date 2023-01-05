@@ -103,4 +103,8 @@ public class PmcController extends BaseController {
     @FXML
     private void handleRate(ActionEvent actionEvent) {
     }
+
+    private void updateMovieList(){
+        pmcModel = getModel().
+    }
 }

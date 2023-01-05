@@ -5,10 +5,10 @@ import java.util.Date;
 public class Movie {
     private int id;
     private String name;
-    //private double rating;
-    //private double personalRating;
+    private double rating;
+    private double personalRating;
     private String filelink;
-    //private Date lastview;
+    private Date lastview;
 
     public Movie(int id, String name, String filelink) {
         this.id = id;
@@ -17,6 +17,15 @@ public class Movie {
         //this.personalRating = personalRating;
         this.filelink = filelink;
         //this.lastview = lastview;
+    }
+
+    public Movie(int id, String name, double rating, String filelink, Date lastview) {
+        this.id = id;
+        this.name = name;
+        this.rating = rating;
+        //this.personalRating = personalRating;
+        this.filelink = filelink;
+        this.lastview = lastview;
     }
 
     public int getId() {

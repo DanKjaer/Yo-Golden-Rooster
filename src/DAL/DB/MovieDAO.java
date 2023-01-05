@@ -3,11 +3,9 @@ package DAL.DB;
 import BE.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +26,29 @@ public class MovieDAO implements IMovieDatabaseAccess {
         //Try with resources to connect to DB
         try (Connection conn = dbCon.getConnection()){
 
+            //SQL string, selects all movies from DB
+            String sql = "SELECT * FROM Movies;";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            //Loop through rows from database result set
+            while (rs.next()){
+                //Map DB row to Movie object
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String filelink = rs.getString("filelink");
+                double rating = rs.getInt("rating");
+                Date lastview = rs.getDate("lastview");
+
+                //Create Movie and add to list created in the beginning
+                Movie movie = new Movie(id,name,rating,filelink,lastview);
+                allMovies.add(movie);
+            }
         } catch (Exception e){
             throw e;
         }
-        return null;
+        return allMovies;
     }
 
     public Movie createMovie(String name, String fileLink) throws Exception{
