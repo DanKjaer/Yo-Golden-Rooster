@@ -58,11 +58,9 @@ public class PmcController extends BaseController {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
             stage.show();
-        } catch (IOException e) {
+        } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 
