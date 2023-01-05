@@ -3,9 +3,9 @@ package DAL.DB;
 import BE.Category;
 
 public interface ICategoryDatabaseAccess {
-    public Category CreateCategory(String category);
+    Category createCategory(String category) throws Exception;
 
-    public void removeCategory(Category category);
+    void removeCategory(Category category) throws Exception;
 
     Category getCategories();
 
