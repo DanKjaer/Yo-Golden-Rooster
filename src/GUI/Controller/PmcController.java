@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.Movie;
 import GUI.Model.PmcModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class PmcController extends BaseController {
 
@@ -27,7 +29,9 @@ public class PmcController extends BaseController {
     @FXML
     private TableView lstMovie;
     @FXML
-    private TableColumn clnTitle, clnCategory, clnPersonalRating, clnLastView;
+    private TableColumn clnTitle, clnCategory, clnLastView;
+    @FXML
+    private TableColumn clnPersonalRating;
     @FXML
     private Button btnPlay, btnRate, btnCategory, btnDelete, btnAdd;
     @FXML
@@ -110,10 +114,10 @@ public class PmcController extends BaseController {
     private void updateMovieList(){
         pmcModel = getModel();
 
-        clnTitle.setCellValueFactory(new PropertyValueFactory<>("Title"));
-        clnCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
-        clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("PersonalRating"));
-        clnLastView.setCellValueFactory(new PropertyValueFactory<>("LastView"));
+        clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
         lstMovie.getColumns().addAll();
         lstMovie.setItems(pmcModel.getObservableMovies());

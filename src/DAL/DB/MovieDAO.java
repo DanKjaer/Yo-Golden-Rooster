@@ -27,7 +27,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
         try (Connection conn = dbCon.getConnection()){
 
             //SQL string, selects all movies from DB
-            String sql = "SELECT * FROM Movies;";
+            String sql = "SELECT * FROM Movie;";
 
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
