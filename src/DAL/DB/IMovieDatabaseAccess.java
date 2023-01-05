@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IMovieDatabaseAccess {
 
-    public List<Movie> getMovies() throws SQLException;
+    List<Movie> getMovies() throws SQLException;
 
-    public Movie createMovie(String name, String fileLink) throws Exception;
+    Movie createMovie(String name, String fileLink) throws Exception;
 
-    public void reMovie(Movie movie) throws Exception;
+    void reMovie(Movie movie) throws Exception;
 }

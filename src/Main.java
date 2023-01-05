@@ -1,4 +1,5 @@
 import GUI.Controller.PmcController;
+import GUI.Model.PmcModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +12,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("GUI/View/PmcView.fxml"));
         Parent root = loader.load();
+
+        PmcController controller = loader.getController();
+        controller.setModel(new PmcModel());
+        controller.setUp();
 
         primaryStage.setTitle("Private Movie Collection");
         primaryStage.setScene(new Scene(root));
