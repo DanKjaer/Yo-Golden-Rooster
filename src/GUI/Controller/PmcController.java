@@ -31,7 +31,6 @@ public class PmcController extends BaseController {
 
     @Override
     public void setUp() {
-
     }
 
     public void handleAdd(ActionEvent actionEvent) {
