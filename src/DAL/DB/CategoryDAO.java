@@ -1,8 +1,6 @@
 package DAL.DB;
 
 import BE.Category;
-import BE.Movie;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,11 +39,9 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         }
     }
 
-
-
-
     public Category createCategory(String category) throws SQLException {
         String sql = "INSERT INTO Category (category) VALUES (?);";
+
         int id = 0;
 
         try(Connection con = dbCon.getConnection()) {
@@ -82,7 +78,6 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
             throw new SQLException("Could not remove Category", e);
         }
     }
-
 
 }
 
