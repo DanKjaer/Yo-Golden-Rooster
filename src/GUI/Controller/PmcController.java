@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import GUI.Model.PmcModel;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,24 +12,21 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.text.Text;
 
 public class PmcController extends BaseController {
-    public Button btnAdd;
-    public Button btnDelete;
-    public Button btnCategory;
-    public TextField tfSearch;
-    public TableView lstMovie;
-    public TableColumn clnTitle;
-    public TableColumn clnCategory;
-    public TableColumn clnPersonalRating;
-    public TableColumn clnLastView;
-    public Button btnPlay;
-    public TextField tfRating;
-    public Button btnRate;
-    public ImageView imgMovie;
-    public Text txtTitle;
-    public Text txtRating;
-    public Text txtPersonalRating;
-    public Text txtCategory;
-    public Text txtLastView;
+
+    @FXML
+    private TextField tfSearch;
+    @FXML
+    private TableView lstMovie;
+    @FXML
+    private TableColumn clnTitle, clnCategory, clnPersonalRating, clnLastView;
+    @FXML
+    private Button btnPlay, btnRate, btnCategory, btnDelete, btnAdd;
+    @FXML
+    private TextField tfRating;
+    @FXML
+    private ImageView imgMovie;
+    @FXML
+    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating, txtRating;
     private PmcModel pmcModel;
 
     @Override
@@ -53,5 +51,4 @@ public class PmcController extends BaseController {
 
     public void handleRate(ActionEvent actionEvent) {
     }
-
 }
