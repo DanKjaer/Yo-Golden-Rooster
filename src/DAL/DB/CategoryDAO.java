@@ -3,13 +3,8 @@ package DAL.DB;
 import BE.Category;
 import java.sql.*;
 
-public class CategoryDAO {
-
+public class CategoryDAO implements ICategoryDatabaseAccess{
     private DatabaseConnector dbcon;
-
-
-
-
 
     public Category createCategory(String category) throws Exception {
         String sql = "INSERT INTO Category (category) VALUES (?);";
@@ -48,6 +43,11 @@ public class CategoryDAO {
             e.printStackTrace();
             throw new Exception("Could not remove Category", e);
         }
+    }
+
+    @Override
+    public Category getCategories() {
+        return null;
     }
 
 

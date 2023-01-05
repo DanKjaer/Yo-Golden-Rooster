@@ -19,4 +19,8 @@ public class CategoryModel {
         mCategory.clear();
         mCategory.addAll(mManager.getCategories());
     }
+
+    public void addCategory(String category) throws Exception {
+        createCategory(category);
+    }
 }

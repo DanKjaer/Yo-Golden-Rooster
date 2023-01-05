@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IMovieDatabaseAccess {
 
-    public List<Movie> getMovies() throws SQLServerException;
+    List<Movie> getMovies() throws SQLServerException;
 }

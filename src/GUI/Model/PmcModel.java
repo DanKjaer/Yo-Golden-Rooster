@@ -8,10 +8,13 @@ import javafx.collections.ObservableList;
 public class PmcModel {
 
     private ObservableList<Movie> moviesToBeViewed;
-
+    private CategoryModel categoryModel;
     private MovieManager mManager;
 
     public PmcModel() throws Exception {
+        categoryModel = new CategoryModel();
+        mManager = new MovieManager();
+
         moviesToBeViewed = FXCollections.observableArrayList();
         moviesToBeViewed.addAll(mManager.getMovies());
     }
@@ -20,4 +23,7 @@ public class PmcModel {
         return moviesToBeViewed;
     }
 
+    public CategoryModel getCategoryModel() {
+        return categoryModel;
+    }
 }
