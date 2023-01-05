@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import GUI.Model.PmcModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -9,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.text.Text;
 
-public class PmcController {
+public class PmcController extends BaseController {
     public Button btnAdd;
     public Button btnDelete;
     public Button btnCategory;
@@ -28,6 +29,12 @@ public class PmcController {
     public Text txtPersonalRating;
     public Text txtCategory;
     public Text txtLastView;
+    private PmcModel pmcModel;
+
+    @Override
+    public void setUp() {
+
+    }
 
     public void handleAdd(ActionEvent actionEvent) {
     }
@@ -46,4 +53,5 @@ public class PmcController {
 
     public void handleRate(ActionEvent actionEvent) {
     }
+
 }
