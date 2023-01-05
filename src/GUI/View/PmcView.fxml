@@ -45,7 +45,7 @@
                               <Insets left="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <TextField fx:id="tfSearch" onInputMethodTextChanged="#handleSearch" promptText="Search...">
+                        <TextField fx:id="tfSearch" promptText="Search...">
                            <HBox.margin>
                               <Insets left="65.0" top="5.0" />
                            </HBox.margin>
