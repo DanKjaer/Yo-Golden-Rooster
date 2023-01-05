@@ -5,8 +5,8 @@ import java.util.Date;
 public class Movie {
     private int id;
     private String name;
-    private double rating;
-    private double personalRating;
+    private String rating;
+    private String personalRating;
     private String filelink;
     private Date lastview;
 
@@ -19,7 +19,7 @@ public class Movie {
         //this.lastview = lastview;
     }
 
-    public Movie(int id, String name, double rating, String filelink, Date lastview) {
+    public Movie(int id, String name, String rating, String filelink, Date lastview) {
         this.id = id;
         this.name = name;
         this.rating = rating;
@@ -54,14 +54,13 @@ public class Movie {
         }
     }
 
-    /**public double getRating() {
-        return personalRating;
+    public String getRating() {
+        return rating;
     }
 
-    public void setRating(double personalRating) {
-        Movie.this.personalRating = personalRating;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
-
 
     public Date getLastview() {
         return lastview;
@@ -69,5 +68,5 @@ public class Movie {
 
     public void setLastview(Date lastview) {
         this.lastview = lastview;
-    }*/
+    }
 }
