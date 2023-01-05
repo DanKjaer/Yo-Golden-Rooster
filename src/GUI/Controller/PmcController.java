@@ -51,5 +51,4 @@ public class PmcController extends BaseController {
 
     public void handleRate(ActionEvent actionEvent) {
     }
-
 }
