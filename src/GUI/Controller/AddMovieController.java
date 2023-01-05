@@ -47,8 +47,6 @@ public class AddMovieController extends BaseController {
     }
     //Cancel button closes the AddMovieController stage.
     public void handleCancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
-        stage.close();
         cancel(btnCancel);
 
     }
