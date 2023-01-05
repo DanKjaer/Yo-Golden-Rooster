@@ -12,6 +12,7 @@ import java.util.List;
 public class AddMovieModel {
 
     private ObservableList<Movie> moviesToBeViewed;
+    private ObservableList<Category> categoryToBeViewed;
 
     private MovieManager mManager;
 
@@ -19,9 +20,12 @@ public class AddMovieModel {
         mManager = new MovieManager();
         moviesToBeViewed = FXCollections.observableArrayList();
         moviesToBeViewed.addAll(mManager.getMovies());
+        categoryToBeViewed = FXCollections.observableArrayList();
+        categoryToBeViewed.addAll(mManager.getCategories());
+
     }
-    public List<Category> getCategories() throws Exception{
-        return mManager.getCategories();
+    public ObservableList<Category> getCategories() throws Exception{
+        return categoryToBeViewed;
     }
 
     public ObservableList<Movie> getObservableMovies(){

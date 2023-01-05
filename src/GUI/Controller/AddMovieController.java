@@ -28,10 +28,9 @@ public class AddMovieController extends BaseController {
     @Override
     public void setup() throws Exception {
         aMM = new AddMovieModel();
-        lstCategory.setItems((ObservableList) aMM.getCategories());
-
-
+        lstCategory.setItems(aMM.getCategories());
     }
+
     public void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
@@ -54,7 +53,7 @@ public class AddMovieController extends BaseController {
     //FileChooser enables the choose button to open a local filepath.
     public void handleChoose(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
-        Stage stage = (Stage) btnCancel.getScene().getWindow();
+        Stage stage = (Stage) btnChoose.getScene().getWindow();
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }
