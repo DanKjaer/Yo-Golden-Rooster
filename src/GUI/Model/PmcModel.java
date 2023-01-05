@@ -1,9 +1,5 @@
 package GUI.Model;
 
-
-
-import BE.Category;
-
 import BE.Movie;
 import BLL.MovieManager;
 import javafx.collections.FXCollections;
