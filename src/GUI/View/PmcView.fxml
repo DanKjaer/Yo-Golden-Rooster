@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PmcController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefHeight="600.0" prefWidth="800.0">
         <columnConstraints>
@@ -30,22 +30,22 @@
                <children>
                   <HBox prefHeight="39.0" prefWidth="412.0">
                      <children>
-                        <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleAdd" text="Add">
+                        <Button fx:id="btnAdd" mnemonicParsing="false" text="Add">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnDelete" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleDelete" text="Delete">
+                        <Button fx:id="btnDelete" layoutX="15.0" layoutY="15.0" mnemonicParsing="false" text="Delete">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="btnCategory" layoutX="58.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleEditCategory" text="Edit Category">
+                        <Button fx:id="btnCategory" layoutX="58.0" layoutY="15.0" mnemonicParsing="false" text="Edit Category">
                            <HBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <TextField fx:id="tfSearch" onInputMethodTextChanged="#handleSearch" promptText="Search...">
+                        <TextField fx:id="tfSearch" promptText="Search..." style="-fx-border-style: 10;">
                            <HBox.margin>
                               <Insets left="65.0" top="5.0" />
                            </HBox.margin>
@@ -69,7 +69,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="btnPlay" mnemonicParsing="false" onAction="#handlePlay" text="Play">
+                        <Button fx:id="btnPlay" mnemonicParsing="false" text="Play">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -79,7 +79,7 @@
                               <Insets left="240.0" />
                            </HBox.margin>
                         </TextField>
-                        <Button fx:id="btnRate" mnemonicParsing="false" onAction="#handleRate" text="Rate">
+                        <Button fx:id="btnRate" mnemonicParsing="false" text="Rate">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
