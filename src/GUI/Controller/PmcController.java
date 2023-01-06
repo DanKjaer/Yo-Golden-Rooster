@@ -48,12 +48,14 @@ public class PmcController extends BaseController {
     public void setup() throws Exception {
         pmcModel = new PmcModel();
         updateMovieList();
+        search();
         disableButtons();
     }
 
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
+        btnPlay.setDisable(true);
     }
 
     /**
@@ -195,9 +197,25 @@ public class PmcController extends BaseController {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
-        txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
+        if (selectedMovie.getLastview() != null) {
+            txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
+        } else {
+            txtLastView.setText("Never seen");
+        }
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
+
+    }
+
+    private void search(){
+        tfSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                PmcModel.searchMovie(newValue);
+            } catch (Exception e) {
+                displayError(e);
+                e.printStackTrace();
+            }
+        });
     }
 }

@@ -6,13 +6,15 @@ import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.List;
+
 public class PmcModel {
 
-    private ObservableList<Movie> moviesToBeViewed;
+    private static ObservableList<Movie> moviesToBeViewed;
     private CategoryModel categoryModel;
 
     private ObservableList<Category> categoryToBeViewed;
-    private MovieManager mManager;
+    private static MovieManager mManager;
 
     public PmcModel() throws Exception {
         categoryModel = new CategoryModel();
@@ -23,6 +25,12 @@ public class PmcModel {
 
         categoryToBeViewed = FXCollections.observableArrayList();
         categoryToBeViewed.addAll(mManager.getCategories());
+    }
+
+    public static void searchMovie(String query) throws Exception {
+        List<Movie> searchResults = mManager.searchMovies(query);
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(searchResults);
     }
 
     public ObservableList<Movie> getObservableMovies() throws Exception {
