@@ -28,10 +28,15 @@ public class CategoryController extends BaseController{
         updateCategoryList();
     }
 
+    /**
+     * Adds a new category with the name provided by the user and clears the textfield.
+     * @param actionEvent
+     */
     public void handleAdd(ActionEvent actionEvent) {
         try {
             String category = tfCategory.getCharacters().toString();
             categoryModel.addCategory(category);
+            tfCategory.clear();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -47,10 +52,14 @@ public class CategoryController extends BaseController{
             Category selectedCategory = (Category) lstCategory.getSelectionModel().getSelectedItem();
             categoryModel.removeCategory(selectedCategory);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            displayError(e);
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Adds the list of categories from the database.
+     */
     private void updateCategoryList() {
         categoryModel = getModel().getCategoryModel();
 
