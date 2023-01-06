@@ -13,6 +13,8 @@ public class MovieManager {
 
     private ICategoryDatabaseAccess categoryDAO;
     private IMovieDatabaseAccess movieDAO;
+    private MovieSearcher movieSearcher = new MovieSearcher();
+
 
     public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
@@ -38,6 +40,12 @@ public class MovieManager {
 
     public void reMovie(Movie removedMovie) throws Exception{
         movieDAO.reMovie(removedMovie);
+    }
+
+    public List<Movie> search(String query) throws Exception{
+        List<Movie> allMovies = getMovies();
+        List<Movie> searchResult = movieSearcher.search(allMovies, query);
+        return searchResult;
     }
 }
 

@@ -44,6 +44,8 @@ public class PmcController extends BaseController {
     public void setup() throws Exception {
         pmcModel = new PmcModel();
         updateMovieList();
+        search();
+
     }
 
     /**
@@ -117,10 +119,6 @@ public class PmcController extends BaseController {
     }
 
     @FXML
-    private void handleSearch(InputMethodEvent inputMethodEvent) {
-    }
-
-    @FXML
     private void handlePlay(ActionEvent actionEvent) {
     }
 
@@ -153,5 +151,15 @@ public class PmcController extends BaseController {
             Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             pmcModel.reMovie(removedMovie);
         }
+    }
+
+    public void search(){
+        tfSearch.textProperty().addListener((observable, oldValue, newValue) -> {
+            try{
+                pmcModel.searchMovie(newValue);
+            } catch (Exception e){
+                displayError(e);
+            }
+        });
     }
 }
