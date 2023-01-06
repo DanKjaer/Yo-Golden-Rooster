@@ -50,4 +50,8 @@ public class PmcModel {
     public ObservableList<Category> getCategories() throws Exception{
         return categoryToBeViewed;
     }
+
+    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
+        mManager.rateMovie(ratedMovie, rating);
+    }
 }

@@ -39,5 +39,9 @@ public class MovieManager {
     public void reMovie(Movie removedMovie) throws Exception{
         movieDAO.reMovie(removedMovie);
     }
+
+    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
+        movieDAO.rateMovie(ratedMovie, rating);
+    }
 }
 

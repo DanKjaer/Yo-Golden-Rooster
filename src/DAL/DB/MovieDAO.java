@@ -89,4 +89,23 @@ public class MovieDAO implements IMovieDatabaseAccess {
             throw new Exception("Could not delete movie", e);
         }
     }
+
+    @Override
+    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
+        try (Connection conn = dbCon.getConnection()) {
+            String sql = "UPDATE Movie SET rating = ? WHERE id = ?;";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setFloat(1, rating);
+            stmt.setInt(2, ratedMovie.getId());
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            throw new Exception("Could not rate song", e);
+        }
+    }
+
+
 }

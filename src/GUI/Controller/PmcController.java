@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -127,7 +128,22 @@ public class PmcController extends BaseController {
     }
 
     @FXML
-    private void handleRate(ActionEvent actionEvent) {
+    private void handleRate(ActionEvent actionEvent) throws Exception {
+        Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+        float rating = Float.parseFloat(tfRating.getText());
+
+        if (rating >= 1 && rating <= 10) {
+            pmcModel.rateMovie(selectedMovie, rating);
+            updateMovieList();
+            tfRating.clear();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Something went wrong!");
+            alert.setHeaderText("Error with rating!");
+            alert.setContentText("Rating must be between 1 and 10. eg 6.9");
+            tfRating.clear();
+            alert.showAndWait();
+        }
     }
 
     /**
@@ -155,5 +171,8 @@ public class PmcController extends BaseController {
             Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             pmcModel.reMovie(removedMovie);
         }
+    }
+
+    public void onclickMovie(MouseEvent mouseEvent) {
     }
 }
