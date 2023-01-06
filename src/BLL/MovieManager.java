@@ -18,9 +18,11 @@ public class MovieManager {
         movieDAO = new MovieDAO();
         categoryDAO = new CategoryDAO();
     }
-
     public List<Movie> getMovies() throws Exception{
         return movieDAO.getMovies();
+    }
+    public List<Category> getCategories() throws Exception{
+        return categoryDAO.getCategories();
     }
     public Category createCategory(String category) throws Exception {
         return categoryDAO.createCategory(category);
@@ -28,10 +30,6 @@ public class MovieManager {
 
     public void removeCategory(Category deletedCategory) throws Exception {
         categoryDAO.removeCategory(deletedCategory);
-    }
-
-    public Category getCategories() {
-        return categoryDAO.getCategories();
     }
     
     public Movie createMovie(String name, String fileLink) throws Exception {

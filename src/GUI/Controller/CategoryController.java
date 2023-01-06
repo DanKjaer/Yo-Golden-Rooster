@@ -1,13 +1,17 @@
 package GUI.Controller;
 
+import BE.Category;
 import GUI.Model.CategoryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CategoryController extends BaseController{
+    public TableColumn clnCategory;
     @FXML
     private TextField tfCategory;
     @FXML
@@ -21,6 +25,7 @@ public class CategoryController extends BaseController{
     public void setup() {
         categoryModel = getModel().getCategoryModel();
 
+        updateCategoryList();
     }
 
     public void handleAdd(ActionEvent actionEvent) {
@@ -33,7 +38,25 @@ public class CategoryController extends BaseController{
         }
     }
 
+    /**
+     * Deletes selected category.
+     * @param actionEvent
+     */
     public void handleDelete(ActionEvent actionEvent) {
+        try {
+            Category selectedCategory = (Category) lstCategory.getSelectionModel().getSelectedItem();
+            categoryModel.removeCategory(selectedCategory);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    private void updateCategoryList() {
+        categoryModel = getModel().getCategoryModel();
+
+        clnCategory.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        lstCategory.getColumns().addAll();
+        lstCategory.setItems(categoryModel.getObservableCategories());
+    }
 }
