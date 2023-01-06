@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -29,6 +30,7 @@ public class AddMovieController extends BaseController {
     public void setup() throws Exception {
         aMM = new AddMovieModel();
         lstCategory.setItems(aMM.getCategories());
+        lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     public void handleSave(ActionEvent actionEvent) {
