@@ -43,7 +43,8 @@ public class PmcController extends BaseController {
     private PmcModel pmcModel;
 
     @Override
-    public void setup() {
+    public void setup() throws Exception {
+        pmcModel = new PmcModel();
         updateMovieList();
     }
 
@@ -68,12 +69,12 @@ public class PmcController extends BaseController {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setResizable(false);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-            stage.show();
+            stage.showAndWait();
+            updateMovieList();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
         }
-        updateMovieList();
     }
 
     /**
@@ -81,7 +82,7 @@ public class PmcController extends BaseController {
      * @param actionEvent
      */
     @FXML
-    private void handleDelete(ActionEvent actionEvent) {
+    private void handleDelete(ActionEvent actionEvent) throws Exception {
         updateMovieList();
     }
 
@@ -128,7 +129,7 @@ public class PmcController extends BaseController {
     /**
      * Updates the list of movies from the database.
      */
-    private void updateMovieList(){
+    private void updateMovieList() throws Exception {
         pmcModel = getModel();
 
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
