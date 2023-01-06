@@ -47,6 +47,10 @@ public class PmcController extends BaseController {
         updateMovieList();
     }
 
+    /**
+     * Opens a new window to add a new movie.
+     * @param actionEvent
+     */
     @FXML
     private void handleAdd(ActionEvent actionEvent) {
         try {
@@ -71,11 +75,19 @@ public class PmcController extends BaseController {
         updateMovieList();
     }
 
+    /**
+     * Deletes selected movie from the list.
+     * @param actionEvent
+     */
     @FXML
     private void handleDelete(ActionEvent actionEvent) {
         updateMovieList();
     }
 
+    /**
+     * Opens a new window to add and delete categories.
+     * @param actionEvent
+     */
     @FXML
     private void handleEditCategory(ActionEvent actionEvent) {
         try {
@@ -111,6 +123,9 @@ public class PmcController extends BaseController {
     private void handleRate(ActionEvent actionEvent) {
     }
 
+    /**
+     * Updates the list of movies from the database.
+     */
     private void updateMovieList(){
         pmcModel = getModel();
 

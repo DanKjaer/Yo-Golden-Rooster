@@ -50,10 +50,22 @@ public class AddMovieController extends BaseController {
         cancel(btnCancel);
 
     }
-    //FileChooser enables the choose button to open a local filepath.
+
+    /**
+     * FileChooser enables the choose button to open a local filepath.
+     */
     public void handleChoose(ActionEvent actionEvent) {
+        //create new stage for picking files
         FileChooser fc = new FileChooser();
         Stage stage = (Stage) btnChoose.getScene().getWindow();
+        fc.setTitle("Select a Movie");
+        //add valid filetypes
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Movie Files (*.mp4, *.mpeg4)", "*.mp4", "*.mpeg4"),
+                new FileChooser.ExtensionFilter("MP4 Files (*.mp4)", "*.mp4"),
+                new FileChooser.ExtensionFilter("MPEG4 Files (*.mpeg4)", "*.mpeg4")
+        );
+        //put selected file into textfield
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }
