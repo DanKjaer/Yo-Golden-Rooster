@@ -69,6 +69,7 @@ public class PmcController extends BaseController {
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
             stage.showAndWait();
+            updateMovieList();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
