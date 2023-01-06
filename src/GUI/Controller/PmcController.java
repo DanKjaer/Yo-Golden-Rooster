@@ -185,6 +185,10 @@ public class PmcController extends BaseController {
         }
     }
 
-    public void onclickMovie(MouseEvent mouseEvent) {
+    public void onClickMovie(MouseEvent mouseEvent) {
+        Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+        txtTitle.setText(selectedMovie.getName());
+        txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
+        txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
     }
 }
