@@ -49,6 +49,12 @@ public class PmcController extends BaseController {
         pmcModel = new PmcModel();
         updateMovieList();
         search();
+        disableButtons();
+    }
+
+    private void disableButtons() {
+        btnPlay.setDisable(true);
+        btnRate.setDisable(true);
         btnPlay.setDisable(true);
     }
 
@@ -154,7 +160,7 @@ public class PmcController extends BaseController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Something went wrong!");
             alert.setHeaderText("Error with rating!");
-            alert.setContentText("Rating must be between 1 and 10. eg 6.9");
+            alert.setContentText("Rating must be between 1.0 and 10.0\neg 6.9");
             tfRating.clear();
             alert.showAndWait();
         }
@@ -178,8 +184,8 @@ public class PmcController extends BaseController {
     public void reMovieAlert() throws Exception{
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete that shit yo");
-        alert.setHeaderText("Slå peder ihjel (Slet film)");
-        alert.setContentText("Vil du udføre det?");
+        alert.setHeaderText("Delete movie");
+        alert.setContentText("Continue?");
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){
             Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
@@ -196,6 +202,10 @@ public class PmcController extends BaseController {
         } else {
             txtLastView.setText("Never seen");
         }
+
+        btnRate.setDisable(false);
+        btnPlay.setDisable(false);
+
     }
 
     private void search(){
