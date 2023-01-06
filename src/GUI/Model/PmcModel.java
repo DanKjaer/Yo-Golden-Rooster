@@ -51,6 +51,10 @@ public class PmcModel {
         return categoryToBeViewed;
     }
 
+    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
+        mManager.rateMovie(ratedMovie, rating);
+    }
+
     public void updateDateOnMovie(Movie movie) throws Exception {
         mManager.updateDateOnMovie(movie);
     }
