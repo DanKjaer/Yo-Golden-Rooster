@@ -39,5 +39,9 @@ public class MovieManager {
     public void reMovie(Movie removedMovie) throws Exception{
         movieDAO.reMovie(removedMovie);
     }
+
+    public void updateDateOnMovie(Movie movie) throws Exception {
+        movieDAO.updateDateOnMovie(movie);
+    }
 }
 

@@ -50,4 +50,8 @@ public class PmcModel {
     public ObservableList<Category> getCategories() throws Exception{
         return categoryToBeViewed;
     }
+
+    public void updateDateOnMovie(Movie movie) throws Exception {
+        mManager.updateDateOnMovie(movie);
+    }
 }

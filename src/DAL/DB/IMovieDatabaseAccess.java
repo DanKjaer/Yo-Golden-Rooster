@@ -12,4 +12,6 @@ public interface IMovieDatabaseAccess {
     Movie createMovie(String name, String fileLink) throws Exception;
 
     void reMovie(Movie movie) throws Exception;
+
+    void updateDateOnMovie(Movie movie) throws Exception;
 }

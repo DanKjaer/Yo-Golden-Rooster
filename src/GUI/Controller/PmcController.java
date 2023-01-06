@@ -124,7 +124,9 @@ public class PmcController extends BaseController {
             Movie selectedMovie = (Movie)lstMovie.getSelectionModel().getSelectedItem();
             File file = new File(selectedMovie.getFilelink());
             Desktop.getDesktop().open(file);
-        } catch (IOException e) {
+            pmcModel.updateDateOnMovie(selectedMovie);
+            updateMovieList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
