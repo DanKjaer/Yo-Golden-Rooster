@@ -191,7 +191,11 @@ public class PmcController extends BaseController {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
-        txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
+        if (selectedMovie.getLastview() != null) {
+            txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
+        } else {
+            txtLastView.setText("Never seen");
+        }
     }
 
     private void search(){
