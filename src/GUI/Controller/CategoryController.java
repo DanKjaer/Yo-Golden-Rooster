@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import BE.Category;
 import GUI.Model.CategoryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,7 +38,17 @@ public class CategoryController extends BaseController{
         }
     }
 
+    /**
+     * Deletes selected category.
+     * @param actionEvent
+     */
     public void handleDelete(ActionEvent actionEvent) {
+        try {
+            Category selectedCategory = (Category) lstCategory.getSelectionModel().getSelectedItem();
+            categoryModel.removeCategory(selectedCategory);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void updateCategoryList() {
