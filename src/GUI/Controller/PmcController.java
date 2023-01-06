@@ -55,6 +55,7 @@ public class PmcController extends BaseController {
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
+        btnDelete.setDisable(true);
     }
 
     /**
@@ -194,6 +195,7 @@ public class PmcController extends BaseController {
 
     public void onClickMovie(MouseEvent mouseEvent) {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
         if (selectedMovie.getLastview() != null) {
@@ -204,7 +206,7 @@ public class PmcController extends BaseController {
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
-
+        btnDelete.setDisable(false);
     }
 
     private void search(){
