@@ -1,7 +1,7 @@
 package GUI.Controller;
 
 import GUI.Model.AddMovieModel;
-import javafx.collections.ObservableList;
+import GUI.Model.PmcModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,7 +15,7 @@ import java.io.File;
 
 public class AddMovieController extends BaseController {
 
-    private AddMovieModel aMM;
+    private PmcModel model;
 
     @FXML
     private Button btnSave, btnChoose, btnCancel;
@@ -28,8 +28,8 @@ public class AddMovieController extends BaseController {
 
     @Override
     public void setup() throws Exception {
-        aMM = new AddMovieModel();
-        lstCategory.setItems(aMM.getCategories());
+        model = new PmcModel();
+        lstCategory.setItems(model.getCategories());
         lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
@@ -46,7 +46,7 @@ public class AddMovieController extends BaseController {
         stage.close();
 
         try{
-            aMM.createMovie(name,filePath, category);
+            model.createMovie(name,filePath, category);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,8 +69,17 @@ public class AddMovieController extends BaseController {
      * @param actionEvent
      */
     public void handleChoose(ActionEvent actionEvent) {
+        //create new stage for picking files
         FileChooser fc = new FileChooser();
         Stage stage = (Stage) btnChoose.getScene().getWindow();
+        fc.setTitle("Select a Movie");
+        //add valid filetypes
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Movie Files (*.mp4, *.mpeg4)", "*.mp4", "*.mpeg4"),
+                new FileChooser.ExtensionFilter("MP4 Files (*.mp4)", "*.mp4"),
+                new FileChooser.ExtensionFilter("MPEG4 Files (*.mpeg4)", "*.mpeg4")
+        );
+        //put selected file into textfield
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }

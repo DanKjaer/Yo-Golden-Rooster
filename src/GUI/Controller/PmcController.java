@@ -41,10 +41,15 @@ public class PmcController extends BaseController {
     private PmcModel pmcModel;
 
     @Override
-    public void setup() {
+    public void setup() throws Exception {
+        pmcModel = new PmcModel();
         updateMovieList();
     }
 
+    /**
+     * Opens a new window to add a new movie.
+     * @param actionEvent
+     */
     @FXML
     private void handleAdd(ActionEvent actionEvent) {
         try {
@@ -61,26 +66,33 @@ public class PmcController extends BaseController {
             stage.setTitle("Add Movie");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-            stage.show();
+            stage.showAndWait();
+            updateMovieList();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
         }
-        updateMovieList();
     }
 
+    /**
+     * Deletes selected movie from the list.
+     * @param actionEvent
+     */
     @FXML
     private void handleDelete(ActionEvent actionEvent) throws Exception {
         try{
             reMovieAlert();
+            updateMovieList();
         } catch (Exception e){
             e.printStackTrace();
             throw new Exception("Could not delete movie", e);
         }
-        updateMovieList();
-
     }
 
+    /**
+     * Opens a new window to add and delete categories.
+     * @param actionEvent
+     */
     @FXML
     private void handleEditCategory(ActionEvent actionEvent) {
         try {
@@ -116,7 +128,10 @@ public class PmcController extends BaseController {
     private void handleRate(ActionEvent actionEvent) {
     }
 
-    private void updateMovieList(){
+    /**
+     * Updates the list of movies from the database.
+     */
+    private void updateMovieList() throws Exception {
         pmcModel = getModel();
 
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
