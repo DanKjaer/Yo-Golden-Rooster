@@ -38,7 +38,7 @@ public class PmcModel {
         return categoryModel;
     }
 
-    public void createMovie(String name, String fileLink, String category) throws Exception{
+    public void createMovie(String name, String fileLink, String category) throws Exception {
         Movie m = mManager.createMovie(name, fileLink);
 
         moviesToBeViewed.add(m);
@@ -50,12 +50,24 @@ public class PmcModel {
         moviesToBeViewed.addAll(mManager.getMovies());
     }
 
-    public ObservableList<Category> getCategories() throws Exception{
+    public ObservableList<Category> getCategories() throws Exception {
         return categoryToBeViewed;
     }
-    public void searchMovie(String query) throws Exception{
+
+    public void searchMovie(String query) throws Exception {
         List<Movie> searchResults = mManager.search(query);
         moviesToBeViewed.clear();
         moviesToBeViewed.addAll(searchResults);
     }
+
+
+    public void rateMovie (Movie ratedMovie,float rating) throws Exception {
+            mManager.rateMovie(ratedMovie, rating);
+    }
+
+    public void updateDateOnMovie (Movie movie) throws Exception {
+            mManager.updateDateOnMovie(movie);
+
+    }
 }
+

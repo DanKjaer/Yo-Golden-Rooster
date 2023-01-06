@@ -42,10 +42,20 @@ public class MovieManager {
         movieDAO.reMovie(removedMovie);
     }
 
-    public List<Movie> search(String query) throws Exception{
+
+    public List<Movie> search(String query) throws Exception {
         List<Movie> allMovies = getMovies();
         List<Movie> searchResult = movieSearcher.search(allMovies, query);
         return searchResult;
+    }
+
+    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
+        movieDAO.rateMovie(ratedMovie, rating);
+    }
+
+    public void updateDateOnMovie(Movie movie) throws Exception {
+        movieDAO.updateDateOnMovie(movie);
+
     }
 }
 

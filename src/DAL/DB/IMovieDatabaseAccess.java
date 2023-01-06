@@ -12,4 +12,9 @@ public interface IMovieDatabaseAccess {
     Movie createMovie(String name, String fileLink) throws Exception;
 
     void reMovie(Movie movie) throws Exception;
+
+    void rateMovie(Movie ratedMovie, float rating) throws Exception;
+
+    void updateDateOnMovie(Movie movie) throws Exception;
+
 }

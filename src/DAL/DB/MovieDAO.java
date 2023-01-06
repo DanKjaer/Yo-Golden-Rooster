@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
@@ -87,6 +88,39 @@ public class MovieDAO implements IMovieDatabaseAccess {
         catch(SQLException e){
             e.printStackTrace();
             throw new Exception("Could not delete movie", e);
+        }
+    }
+
+    @Override
+    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
+        try (Connection conn = dbCon.getConnection()) {
+            String sql = "UPDATE Movie SET rating = ? WHERE id = ?;";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setFloat(1, rating);
+            stmt.setInt(2, ratedMovie.getId());
+
+            stmt.executeUpdate();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            throw new Exception("Could not rate song", e);
+        }
+    }
+
+
+    public void updateDateOnMovie(Movie movie) throws Exception {
+        String sql = "UPDATE Movie " +
+                "SET lastview = GETDATE() " +
+                "WHERE id = " + movie.getId() + ";";
+
+        try(Connection con = dbCon.getConnection()){
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            statement.executeUpdate();
+        }
+        catch(Exception e){
+            throw new Exception(e);
         }
     }
 }
