@@ -33,6 +33,10 @@ public class AddMovieController extends BaseController {
         lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    /**
+     * Saves a movie to our movie table, with the name, filepath and category of the movie.
+     * @param actionEvent
+     */
     public void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
@@ -47,17 +51,27 @@ public class AddMovieController extends BaseController {
             e.printStackTrace();
         }
     }
-    //Cancel button closes the AddMovieController stage.
+
+    /**
+     * Cancel button closes the AddMovieController stage.
+     * the method "Cancel" that's called, is used to close the stage
+     * btnCancel refers to the cancel button
+     * @param actionEvent
+     */
+
     public void handleCancel(ActionEvent actionEvent) {
         cancel(btnCancel);
-
     }
-    //FileChooser enables the choose button to open a local filepath.
+
+    /**
+     * FileChooser enables the choose button to open a local filepath.
+     * f is the name of our file, and fc stands for filechooser.
+     * @param actionEvent
+     */
     public void handleChoose(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
         Stage stage = (Stage) btnChoose.getScene().getWindow();
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }
-
 }
