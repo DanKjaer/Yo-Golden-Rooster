@@ -63,12 +63,13 @@ public class PmcController extends BaseController {
             stage.setTitle("Add Movie");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-            stage.show();
-        } catch (IOException e) {
+            stage.showAndWait();
+        } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
         }
-        updateMovieList();
+        lstMovie.getColumns().addAll();
+        lstMovie.setItems(pmcModel.getObservableMovies());
     }
 
     @FXML
@@ -113,6 +114,8 @@ public class PmcController extends BaseController {
 
     private void updateMovieList(){
         pmcModel = getModel();
+
+        //lstMovie.getItems().clear();
 
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         //clnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));

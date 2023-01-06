@@ -9,6 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
+
 public class MovieDAO implements IMovieDatabaseAccess {
 
     private DatabaseConnector dbCon;
@@ -57,7 +59,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
         int id = 0;
 
         try(Connection con = dbCon.getConnection()){
-            PreparedStatement statement = con.prepareStatement(sql);
+            PreparedStatement statement = con.prepareStatement(sql, RETURN_GENERATED_KEYS);
 
             statement.setString(1, name);
             statement.setString(2, fileLink);
