@@ -55,7 +55,6 @@ public class PmcController extends BaseController {
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
-        btnPlay.setDisable(true);
     }
 
     /**
