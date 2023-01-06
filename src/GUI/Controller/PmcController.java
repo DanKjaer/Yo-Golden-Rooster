@@ -49,7 +49,6 @@ public class PmcController extends BaseController {
         pmcModel = new PmcModel();
         updateMovieList();
         search();
-        btnPlay.setDisable(true);
     }
 
     /**
