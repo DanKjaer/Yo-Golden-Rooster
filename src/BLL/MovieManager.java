@@ -43,6 +43,7 @@ public class MovieManager {
 
     public void rateMovie(Movie ratedMovie, float rating) throws Exception {
         movieDAO.rateMovie(ratedMovie, rating);
+    }
 
     public void updateDateOnMovie(Movie movie) throws Exception {
         movieDAO.updateDateOnMovie(movie);
