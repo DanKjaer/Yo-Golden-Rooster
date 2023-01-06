@@ -47,7 +47,7 @@
                         </Button>
                         <TextField fx:id="tfSearch" onInputMethodTextChanged="#handleSearch" promptText="Search...">
                            <HBox.margin>
-                              <Insets left="65.0" top="5.0" />
+                              <Insets left="265.0" top="5.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -117,7 +117,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rating: " wrappingWidth="60.205078125">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMDb Rating: " wrappingWidth="110.205078125">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -125,7 +125,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </Text>
-                        <Text fx:id="txtRating" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="305.0">
+                        <Text fx:id="txtRating" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="260.0">
                            <font>
                               <Font size="18.0" />
                            </font>
