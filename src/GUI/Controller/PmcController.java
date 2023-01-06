@@ -48,6 +48,8 @@ public class PmcController extends BaseController {
     public void setup() throws Exception {
         pmcModel = new PmcModel();
         updateMovieList();
+        search();
+        btnPlay.setDisable(true);
     }
 
     /**
@@ -190,5 +192,16 @@ public class PmcController extends BaseController {
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
         txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
+    }
+
+    private void search(){
+        tfSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                PmcModel.searchMovie(newValue);
+            } catch (Exception e) {
+                displayError(e);
+                e.printStackTrace();
+            }
+        });
     }
 }

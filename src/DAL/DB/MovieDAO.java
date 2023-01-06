@@ -18,6 +18,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     public MovieDAO() throws IOException {
         dbCon = new DatabaseConnector();
+
     }
 
     @Override
@@ -107,7 +108,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
             throw new Exception("Could not rate song", e);
         }
     }
-
 
     public void updateDateOnMovie(Movie movie) throws Exception {
         String sql = "UPDATE Movie " +

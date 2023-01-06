@@ -2,6 +2,7 @@ package BLL;
 
 import BE.Category;
 import BE.Movie;
+import BLL.util.Searcher;
 import DAL.DB.CategoryDAO;
 import DAL.DB.ICategoryDatabaseAccess;
 import DAL.DB.IMovieDatabaseAccess;
@@ -13,10 +14,12 @@ public class MovieManager {
 
     private ICategoryDatabaseAccess categoryDAO;
     private IMovieDatabaseAccess movieDAO;
+    private Searcher searcher;
 
     public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
         categoryDAO = new CategoryDAO();
+        searcher = new Searcher();
     }
     public List<Movie> getMovies() throws Exception{
         return movieDAO.getMovies();
@@ -47,7 +50,12 @@ public class MovieManager {
 
     public void updateDateOnMovie(Movie movie) throws Exception {
         movieDAO.updateDateOnMovie(movie);
+    }
 
+    public List<Movie> searchMovies(String query) throws Exception{
+        List<Movie> allMovies = getMovies();
+        List<Movie> searchResult = searcher.search(allMovies, query);
+        return searchResult;
     }
 }
 
