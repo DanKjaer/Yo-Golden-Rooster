@@ -28,7 +28,7 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
 
             while(rSet.next()){
                 int id = rSet.getInt("id");
-                String name = rSet.getString("Name");
+                String name = rSet.getString("name");
 
                 Category category = new Category(id, name);
                 allCategories.add(category);
@@ -40,7 +40,7 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
     }
 
     public Category createCategory(String category) throws SQLException {
-        String sql = "INSERT INTO Category (category) VALUES (?);";
+        String sql = "INSERT INTO Category (name) VALUES (?);";
 
         int id = 0;
 
