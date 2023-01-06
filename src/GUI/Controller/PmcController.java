@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
@@ -21,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 
 public class PmcController extends BaseController {
 
@@ -83,7 +81,13 @@ public class PmcController extends BaseController {
      */
     @FXML
     private void handleDelete(ActionEvent actionEvent) throws Exception {
-        updateMovieList();
+        try{
+            reMovieAlert();
+            updateMovieList();
+        } catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("Could not delete movie", e);
+        }
     }
 
     /**
@@ -139,5 +143,17 @@ public class PmcController extends BaseController {
 
         lstMovie.getColumns().addAll();
         lstMovie.setItems(pmcModel.getObservableMovies());
+    }
+
+    public void reMovieAlert() throws Exception{
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete that shit yo");
+        alert.setHeaderText("Slå peder ihjel (Slet film)");
+        alert.setContentText("Vil du udføre det?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+            pmcModel.reMovie(removedMovie);
+        }
     }
 }

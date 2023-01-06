@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -29,8 +30,13 @@ public class AddMovieController extends BaseController {
     public void setup() throws Exception {
         model = new PmcModel();
         lstCategory.setItems(model.getCategories());
+        lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    /**
+     * Saves a movie to our movie table, with the name, filepath and category of the movie.
+     * @param actionEvent
+     */
     public void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
@@ -45,14 +51,22 @@ public class AddMovieController extends BaseController {
             e.printStackTrace();
         }
     }
-    //Cancel button closes the AddMovieController stage.
+
+    /**
+     * Cancel button closes the AddMovieController stage.
+     * the method "Cancel" that's called, is used to close the stage
+     * btnCancel refers to the cancel button
+     * @param actionEvent
+     */
+
     public void handleCancel(ActionEvent actionEvent) {
         cancel(btnCancel);
-
     }
 
     /**
      * FileChooser enables the choose button to open a local filepath.
+     * f is the name of our file, and fc stands for filechooser.
+     * @param actionEvent
      */
     public void handleChoose(ActionEvent actionEvent) {
         //create new stage for picking files
@@ -69,5 +83,4 @@ public class AddMovieController extends BaseController {
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }
-
 }
