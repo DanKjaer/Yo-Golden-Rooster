@@ -17,6 +17,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Optional;
@@ -125,6 +127,15 @@ public class PmcController extends BaseController {
 
     @FXML
     private void handlePlay(ActionEvent actionEvent) {
+        try {
+            Movie selectedMovie = (Movie)lstMovie.getSelectionModel().getSelectedItem();
+            File file = new File(selectedMovie.getFilelink());
+            Desktop.getDesktop().open(file);
+            pmcModel.updateDateOnMovie(selectedMovie);
+            updateMovieList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

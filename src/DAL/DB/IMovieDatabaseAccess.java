@@ -14,4 +14,7 @@ public interface IMovieDatabaseAccess {
     void reMovie(Movie movie) throws Exception;
 
     void rateMovie(Movie ratedMovie, float rating) throws Exception;
+
+    void updateDateOnMovie(Movie movie) throws Exception;
+
 }
