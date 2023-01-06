@@ -46,7 +46,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 //Create Movie and add to list created in the beginning
                 Movie movie = new Movie(id,name,rating,filelink,lastview);
                 allMovies.add(movie);
-
             }
         } catch (Exception e){
             throw e;
@@ -90,6 +89,4 @@ public class MovieDAO implements IMovieDatabaseAccess {
             throw new Exception("Could not delete movie", e);
         }
     }
-
-
 }

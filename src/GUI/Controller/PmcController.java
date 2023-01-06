@@ -43,7 +43,8 @@ public class PmcController extends BaseController {
     private PmcModel pmcModel;
 
     @Override
-    public void setup() {
+    public void setup() throws Exception {
+        pmcModel = new PmcModel();
         updateMovieList();
     }
 
@@ -68,12 +69,10 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
-        lstMovie.getColumns().addAll();
-        lstMovie.setItems(pmcModel.getObservableMovies());
     }
 
     @FXML
-    private void handleDelete(ActionEvent actionEvent) {
+    private void handleDelete(ActionEvent actionEvent) throws Exception {
         updateMovieList();
     }
 
@@ -112,10 +111,8 @@ public class PmcController extends BaseController {
     private void handleRate(ActionEvent actionEvent) {
     }
 
-    private void updateMovieList(){
-        pmcModel = getModel();
-
-        //lstMovie.getItems().clear();
+    private void updateMovieList() throws Exception {
+        //pmcModel = getModel();
 
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         //clnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));

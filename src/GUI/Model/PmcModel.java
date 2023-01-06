@@ -1,5 +1,6 @@
 package GUI.Model;
 
+import BE.Category;
 import BE.Movie;
 import BLL.MovieManager;
 import javafx.collections.FXCollections;
@@ -9,6 +10,8 @@ public class PmcModel {
 
     private ObservableList<Movie> moviesToBeViewed;
     private CategoryModel categoryModel;
+
+    private ObservableList<Category> categoryToBeViewed;
     private MovieManager mManager;
 
     public PmcModel() throws Exception {
@@ -17,9 +20,14 @@ public class PmcModel {
 
         moviesToBeViewed = FXCollections.observableArrayList();
         moviesToBeViewed.addAll(mManager.getMovies());
+
+        categoryToBeViewed = FXCollections.observableArrayList();
+        categoryToBeViewed.addAll(mManager.getCategories());
     }
 
-    public ObservableList<Movie> getObservableMovies(){
+    public ObservableList<Movie> getObservableMovies() throws Exception {
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(mManager.getMovies());
         return moviesToBeViewed;
     }
 
@@ -27,15 +35,19 @@ public class PmcModel {
         return categoryModel;
     }
 
-    public void createMovie(String name, String fileLink) throws Exception{
+    public void createMovie(String name, String fileLink, String category) throws Exception{
         Movie m = mManager.createMovie(name, fileLink);
 
-        //moviesToBeViewed.add(m);
-    }
-    public void reMovie(Movie removedMovie) throws Exception {
-        mManager.reMovie(removedMovie);
-        //moviesToBeViewed.clear();
-        //moviesToBeViewed.addAll(mManager.getMovies());
+        moviesToBeViewed.add(m);
     }
 
+    public void reMovie(Movie removedMovie) throws Exception {
+        mManager.reMovie(removedMovie);
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(mManager.getMovies());
+    }
+
+    public ObservableList<Category> getCategories() throws Exception{
+        return categoryToBeViewed;
+    }
 }

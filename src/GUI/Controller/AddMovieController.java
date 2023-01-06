@@ -1,7 +1,7 @@
 package GUI.Controller;
 
 import GUI.Model.AddMovieModel;
-import javafx.collections.ObservableList;
+import GUI.Model.PmcModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,7 +14,7 @@ import java.io.File;
 
 public class AddMovieController extends BaseController {
 
-    private AddMovieModel aMM;
+    private PmcModel model;
 
     @FXML
     private Button btnSave, btnChoose, btnCancel;
@@ -27,8 +27,8 @@ public class AddMovieController extends BaseController {
 
     @Override
     public void setup() throws Exception {
-        aMM = new AddMovieModel();
-        lstCategory.setItems(aMM.getCategories());
+        model = new PmcModel();
+        lstCategory.setItems(model.getCategories());
     }
 
     public void handleSave(ActionEvent actionEvent) {
@@ -40,7 +40,7 @@ public class AddMovieController extends BaseController {
         stage.close();
 
         try{
-            aMM.createMovie(name,filePath, category);
+            model.createMovie(name,filePath, category);
         } catch (Exception e) {
             e.printStackTrace();
         }
