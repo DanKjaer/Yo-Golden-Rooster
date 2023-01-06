@@ -52,7 +52,7 @@
                         </TextField>
                      </children>
                   </HBox>
-                  <TableView fx:id="lstMovie" onMouseClicked="#onclickMovie" prefHeight="575.0" prefWidth="412.0">
+                  <TableView fx:id="lstMovie" onMouseClicked="#onClickMovie" prefHeight="575.0" prefWidth="412.0">
                     <columns>
                       <TableColumn fx:id="clnTitle" prefWidth="197.0" text="Title" />
                       <TableColumn fx:id="clnCategory" prefWidth="168.0" text="Category" />
