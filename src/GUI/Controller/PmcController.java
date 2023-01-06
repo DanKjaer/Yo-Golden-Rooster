@@ -66,6 +66,7 @@ public class PmcController extends BaseController {
             stage.setScene(new Scene(pane));
             stage.setTitle("Add Movie");
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
             stage.show();
         } catch (Exception e) {
@@ -103,6 +104,7 @@ public class PmcController extends BaseController {
             stage.setScene(new Scene(pane));
             stage.setTitle("Category");
             stage.initModality(Modality.WINDOW_MODAL);
+            stage.setResizable(false);
             stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
             stage.show();
         } catch (IOException e) {
