@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -49,13 +48,18 @@ public class PmcController extends BaseController {
     private boolean detectOldMovie;
 
     @Override
-    public void setup() throws Exception {
-        pmcModel = new PmcModel();
-        updateMovieList();
-        search();
-        disableButtons();
-        checkOldMovie();
-        alertOldMovie();
+    public void setup() {
+        try {
+            pmcModel = new PmcModel();
+            updateMovieList();
+            search();
+            disableButtons();
+            checkOldMovie();
+            alertOldMovie();
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -85,7 +89,7 @@ public class PmcController extends BaseController {
             Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
             String title = (String) clnTitle.getCellObservableValue(movie).getValue();
 
-            //Add to old movies string
+            //Add to oldMovies string
             if (date.before(oldDate) && rating < 6.0) {
                 sb.append(title);
                 if (i < lstMovie.getItems().size() - 2) {
@@ -151,7 +155,7 @@ public class PmcController extends BaseController {
             updateMovieList();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Could not delete movie", e);
+            displayError(e);
         }
     }
 
@@ -194,52 +198,69 @@ public class PmcController extends BaseController {
             updateMovieList();
         } catch (Exception e) {
             e.printStackTrace();
+            displayError(e);
         }
     }
 
     @FXML
-    private void handleRate(ActionEvent actionEvent) throws Exception {
-        Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
-        float rating = Float.parseFloat(tfRating.getText());
+    private void handleRate(ActionEvent actionEvent) {
+        try {
+            Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+            float rating = Float.parseFloat(tfRating.getText());
 
-        if (rating >= 1 && rating <= 10) {
-            pmcModel.rateMovie(selectedMovie, rating);
-            updateMovieList();
-            tfRating.clear();
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Something went wrong!");
-            alert.setHeaderText("Error with rating!");
-            alert.setContentText("Rating must be between 1.0 and 10.0\neg 6.9");
-            tfRating.clear();
-            alert.showAndWait();
+            if (rating >= 1 && rating <= 10) {
+                pmcModel.rateMovie(selectedMovie, rating);
+                updateMovieList();
+                tfRating.clear();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong!");
+                alert.setHeaderText("Error with rating!");
+                alert.setContentText("Rating must be between 1.0 and 10.0\neg 6.9");
+                tfRating.clear();
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
         }
+
     }
 
     /**
      * Updates the list of movies from the database.
      */
-    private void updateMovieList() throws Exception {
-        pmcModel = getModel();
+    private void updateMovieList() {
+        try {
+            pmcModel = getModel();
 
-        clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-        clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
-        clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
+            clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+            clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
+            clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+            clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
-        lstMovie.getColumns().addAll();
-        lstMovie.setItems(pmcModel.getObservableMovies());
+            lstMovie.getColumns().addAll();
+            lstMovie.setItems(pmcModel.getObservableMovies());
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
-    public void reMovieAlert() throws Exception {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete that shit yo");
-        alert.setHeaderText("Delete movie");
-        alert.setContentText("Continue?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
-            pmcModel.reMovie(removedMovie);
+    public void reMovieAlert() {
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete that shit yo");
+            alert.setHeaderText("Delete movie");
+            alert.setContentText("Continue?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+                pmcModel.reMovie(removedMovie);
+            }
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
         }
     }
 

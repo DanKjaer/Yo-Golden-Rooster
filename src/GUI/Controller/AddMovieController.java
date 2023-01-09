@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.rmi.server.ExportException;
 
 public class AddMovieController extends BaseController {
 
@@ -27,10 +28,16 @@ public class AddMovieController extends BaseController {
     private ListView lstCategory;
 
     @Override
-    public void setup() throws Exception {
-        model = new PmcModel();
-        lstCategory.setItems(model.getCategories());
-        lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    public void setup() {
+        try {
+            model = new PmcModel();
+            lstCategory.setItems(model.getCategories());
+            lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
+
     }
 
     /**
