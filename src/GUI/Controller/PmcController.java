@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import BE.Movie;
 import GUI.Model.PmcModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,9 +20,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 public class PmcController extends BaseController {
@@ -50,12 +54,24 @@ public class PmcController extends BaseController {
         updateMovieList();
         search();
         disableButtons();
+        oldMovie();
     }
 
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
         btnDelete.setDisable(true);
+    }
+
+    private void oldMovie() {
+
+
+        if () {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("test");
+            alert.setHeaderText("test");
+            alert.showAndWait();
+        }
     }
 
     /**
