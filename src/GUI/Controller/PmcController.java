@@ -58,6 +58,9 @@ public class PmcController extends BaseController {
         alertOldMovie();
     }
 
+    /**
+     * Disables buttons to prevent to use buttons
+     */
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
@@ -65,35 +68,43 @@ public class PmcController extends BaseController {
 
     }
 
+    /**
+     * Checks the DB when the program starts for old movies with less than 6.0 rating
+     */
     private void checkOldMovie() {
         //Get this day 2 years ago
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -2);
         Date oldDate = calendar.getTime();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < lstMovie.getItems().size(); i++) {
-            //Get last view and rating
+            //Get last view, rating and title
             Movie movie = (Movie) lstMovie.getItems().get(i);
             Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
             Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
             String title = (String) clnTitle.getCellObservableValue(movie).getValue();
 
-            //Display alert if rating is under 6 and is older than this day 2 years ago
-            if (lstMovie.getItems().size()-1 == i && rating < 6.0 && date.before(oldDate)) {
-                oldMovies = oldMovies + title + ".";
-                detectOldMovie = true;
-            } else if (rating < 6.0 && date.before(oldDate)) {
-                oldMovies = oldMovies + title + ", ";
+            //Add to old movies string
+            if (date.before(oldDate) && rating < 6.0) {
+                sb.append(title);
+                if (i < lstMovie.getItems().size() - 2) {
+                    sb.append(", ");
+                }
+                oldMovies = sb.toString();
                 detectOldMovie = true;
             }
         }
     }
 
+    /**
+     * Displays an alert if detectOldMovie is true
+     */
     private void alertOldMovie() {
         if (detectOldMovie) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Old Movie!");
-            alert.setHeaderText("You have a movie that haven't been watched for over two years with a rating below 6.0.\n" + "Old movie: " + oldMovies);
+            alert.setHeaderText("You have a movie that haven't been watched for over two years with a rating below 6.0.\n" + "Old movie: " + oldMovies + ".");
             alert.showAndWait();
         }
     }
