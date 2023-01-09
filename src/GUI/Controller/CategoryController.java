@@ -27,8 +27,7 @@ public class CategoryController extends BaseController{
         categoryModel = getModel().getCategoryModel();
 
         updateCategoryList();
-        btnAdd.setDisable(true);
-        enableAdd();
+        disableAdd();
     }
 
     /**
@@ -74,7 +73,10 @@ public class CategoryController extends BaseController{
         lstCategory.setItems(categoryModel.getObservableCategories());
     }
 
-    private void enableAdd(){
+    /**
+     * Disables the add button, if nothing has been written in the text field.
+     */
+    private void disableAdd(){
         tfCategory.textProperty().addListener((observable, oldValue, newValue) -> {
             boolean isTextFieldEmpty = newValue.trim().isEmpty();
             btnAdd.setDisable(isTextFieldEmpty);

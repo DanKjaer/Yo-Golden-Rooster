@@ -65,6 +65,5 @@ public class PmcModel {
 
     public void updateDateOnMovie (Movie movie) throws Exception {
             mManager.updateDateOnMovie(movie);
-
     }
 }
