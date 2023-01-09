@@ -76,11 +76,14 @@ public class PmcController extends BaseController {
             Movie movie = (Movie) lstMovie.getItems().get(i);
             Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
             Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
+            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
 
             //Display alert if rating is under 6 and is older than this day 2 years ago
-            if (rating < 6.0 && date.before(oldDate)) {
-                String title = (String) clnTitle.getCellObservableValue(movie).getValue();
-                oldMovies = oldMovies + title + " ";
+            if (lstMovie.getItems().size()-1 == i && rating < 6.0 && date.before(oldDate)) {
+                oldMovies = oldMovies + title + ".";
+                detectOldMovie = true;
+            } else if (rating < 6.0 && date.before(oldDate)) {
+                oldMovies = oldMovies + title + ", ";
                 detectOldMovie = true;
             }
         }
@@ -90,7 +93,7 @@ public class PmcController extends BaseController {
         if (detectOldMovie) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Old Movie!");
-            alert.setHeaderText("You have a movie that haven't been watched for over two years with a rating below 6.0.\n" + "Old movie: " + oldMovies + ".");
+            alert.setHeaderText("You have a movie that haven't been watched for over two years with a rating below 6.0.\n" + "Old movie: " + oldMovies);
             alert.showAndWait();
         }
     }
@@ -239,6 +242,7 @@ public class PmcController extends BaseController {
         } else {
             txtLastView.setText("Never seen");
         }
+        txtCategory.setText(selectedMovie.getCategories().toString());
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
@@ -255,9 +259,5 @@ public class PmcController extends BaseController {
 
             }
         });
-    }
-
-    public void onclickMovie (MouseEvent mouseEvent){
-
     }
 }
