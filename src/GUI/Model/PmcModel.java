@@ -59,12 +59,6 @@ public class PmcModel {
         return categoryToBeViewed;
     }
 
-    public void searchMovie(String query) throws Exception {
-        List<Movie> searchResults = mManager.search(query);
-        moviesToBeViewed.clear();
-        moviesToBeViewed.addAll(searchResults);
-    }
-
     public void rateMovie (Movie ratedMovie,float rating) throws Exception {
             mManager.rateMovie(ratedMovie, rating);
     }
