@@ -9,7 +9,7 @@ public class Searcher {
     public List<Movie> search(List<Movie> searchBase, String query) {
         List<Movie> searchResult = new ArrayList<>();
         for (Movie movie : searchBase) {
-            if(compareTitle(query, movie) || compareRating(query, movie)) {
+            if(compareTitle(query, movie) || compareRating(query, movie) || compareCategory(query, movie)) {
                 searchResult.add(movie);
             }
         }
@@ -24,4 +24,7 @@ public class Searcher {
         return movie.getName().toLowerCase().contains(query.toLowerCase());
     }
 
+    private boolean compareCategory(String query, Movie movie) {
+        return movie.getCategories().toLowerCase().contains(query.toLowerCase());
+    }
 }
