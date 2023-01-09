@@ -11,7 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CategoryController extends BaseController{
-    public TableColumn clnCategory;
+    @FXML
+    private TableColumn clnCategory;
     @FXML
     private TextField tfCategory;
     @FXML
@@ -34,7 +35,8 @@ public class CategoryController extends BaseController{
      * Adds a new category with the name provided by the user and clears the textfield.
      * @param actionEvent
      */
-    public void handleAdd(ActionEvent actionEvent) {
+    @FXML
+    private void handleAdd(ActionEvent actionEvent) {
         try {
             String category = tfCategory.getCharacters().toString();
             categoryModel.addCategory(category);
@@ -49,7 +51,8 @@ public class CategoryController extends BaseController{
      * Deletes selected category.
      * @param actionEvent
      */
-    public void handleDelete(ActionEvent actionEvent) {
+    @FXML
+    private void handleDelete(ActionEvent actionEvent) {
         try {
             Category selectedCategory = (Category) lstCategory.getSelectionModel().getSelectedItem();
             categoryModel.removeCategory(selectedCategory);

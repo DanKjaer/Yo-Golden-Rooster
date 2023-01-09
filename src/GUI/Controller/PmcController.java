@@ -69,7 +69,6 @@ public class PmcController extends BaseController {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
         btnDelete.setDisable(true);
-
     }
 
     /**
@@ -224,7 +223,6 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -290,7 +288,6 @@ public class PmcController extends BaseController {
             } catch (Exception e) {
                 displayError(e);
                 e.printStackTrace();
-
             }
         });
     }
