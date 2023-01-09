@@ -24,6 +24,7 @@ public class AddMovieModel {
         categoryToBeViewed.addAll(mManager.getCategories());
 
     }
+
     public ObservableList<Category> getCategories() throws Exception{
         return categoryToBeViewed;
     }
@@ -32,11 +33,14 @@ public class AddMovieModel {
         return moviesToBeViewed;
     }
 
-    public void createMovie(String name, String fileLink, String category) throws Exception{
+    /*public void createMovie(String name, String fileLink, String category) throws Exception{
+
         Movie m = mManager.createMovie(name, fileLink);
 
         moviesToBeViewed.add(m);
     }
+
+     */
     public void reMovie(Movie removedMovie) throws Exception {
         mManager.reMovie(removedMovie);
         moviesToBeViewed.clear();

@@ -12,7 +12,6 @@ public class PmcModel {
 
     private static ObservableList<Movie> moviesToBeViewed;
     private CategoryModel categoryModel;
-
     private ObservableList<Category> categoryToBeViewed;
     private static MovieManager mManager;
 
@@ -43,8 +42,9 @@ public class PmcModel {
         return categoryModel;
     }
 
-    public void createMovie(String name, String fileLink, String category) throws Exception{
-        Movie m = mManager.createMovie(name, fileLink);
+
+    public void createMovie(String name, String fileLink, List<Category> categories) throws Exception{
+        Movie m = mManager.createMovie(name, fileLink, categories);
 
         moviesToBeViewed.add(m);
     }
@@ -55,15 +55,22 @@ public class PmcModel {
         moviesToBeViewed.addAll(mManager.getMovies());
     }
 
-    public ObservableList<Category> getCategories() throws Exception{
+    public ObservableList<Category> getCategories() throws Exception {
         return categoryToBeViewed;
     }
 
-    public void rateMovie(Movie ratedMovie, float rating) throws Exception {
-        mManager.rateMovie(ratedMovie, rating);
+    public void searchMovie(String query) throws Exception {
+        List<Movie> searchResults = mManager.search(query);
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(searchResults);
     }
 
-    public void updateDateOnMovie(Movie movie) throws Exception {
-        mManager.updateDateOnMovie(movie);
+    public void rateMovie (Movie ratedMovie,float rating) throws Exception {
+            mManager.rateMovie(ratedMovie, rating);
+    }
+
+    public void updateDateOnMovie (Movie movie) throws Exception {
+            mManager.updateDateOnMovie(movie);
+
     }
 }
