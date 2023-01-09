@@ -17,7 +17,6 @@ import java.rmi.server.ExportException;
 public class AddMovieController extends BaseController {
 
     private PmcModel model;
-
     @FXML
     private Button btnSave, btnChoose, btnCancel;
     @FXML
@@ -44,7 +43,8 @@ public class AddMovieController extends BaseController {
      * Saves a movie to our movie table, with the name, filepath and category of the movie.
      * @param actionEvent
      */
-    public void handleSave(ActionEvent actionEvent) {
+    @FXML
+    private void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
         ObservableList categories = lstCategory.getSelectionModel().getSelectedItems();
@@ -65,7 +65,8 @@ public class AddMovieController extends BaseController {
      * @param actionEvent
      */
 
-    public void handleCancel(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) {
         cancel(btnCancel);
     }
 
@@ -74,7 +75,8 @@ public class AddMovieController extends BaseController {
      * f is the name of our file, and fc stands for filechooser.
      * @param actionEvent
      */
-    public void handleChoose(ActionEvent actionEvent) {
+    @FXML
+    private void handleChoose(ActionEvent actionEvent) {
         //create new stage for picking files
         FileChooser fc = new FileChooser();
         Stage stage = (Stage) btnChoose.getScene().getWindow();

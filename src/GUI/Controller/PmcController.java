@@ -114,7 +114,6 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add a new movie.
-     *
      * @param actionEvent
      */
     @FXML
@@ -247,7 +246,7 @@ public class PmcController extends BaseController {
         }
     }
 
-    public void reMovieAlert() {
+    private void reMovieAlert() {
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete that shit yo");
@@ -264,7 +263,8 @@ public class PmcController extends BaseController {
         }
     }
 
-    public void onClickMovie(MouseEvent mouseEvent) {
+    @FXML
+    private void onClickMovie(MouseEvent mouseEvent) {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
 
         txtTitle.setText(selectedMovie.getName());
