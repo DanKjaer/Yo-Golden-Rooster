@@ -1,7 +1,7 @@
 package GUI.Controller;
 
-import GUI.Model.AddMovieModel;
 import GUI.Model.PmcModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,13 +40,12 @@ public class AddMovieController extends BaseController {
     public void handleSave(ActionEvent actionEvent) {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
-        String category = lstCategory.getSelectionModel().getSelectedItems().toString();
-
+        ObservableList categories = lstCategory.getSelectionModel().getSelectedItems();
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
 
         try{
-            model.createMovie(name,filePath, category);
+            model.createMovie(name,filePath, categories);
         } catch (Exception e) {
             e.printStackTrace();
         }

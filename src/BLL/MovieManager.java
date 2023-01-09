@@ -34,8 +34,8 @@ public class MovieManager {
         categoryDAO.removeCategory(deletedCategory);
     }
     
-    public Movie createMovie(String name, String fileLink) throws Exception {
-        return movieDAO.createMovie(name, fileLink);
+    public Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception {
+        return movieDAO.createMovie(name, fileLink, categories);
     }
 
     public void reMovie(Movie removedMovie) throws Exception{

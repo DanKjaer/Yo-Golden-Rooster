@@ -38,8 +38,9 @@ public class PmcModel {
         return categoryModel;
     }
 
-    public void createMovie(String name, String fileLink, String category) throws Exception {
-        Movie m = mManager.createMovie(name, fileLink);
+
+    public void createMovie(String name, String fileLink, List<Category> categories) throws Exception{
+        Movie m = mManager.createMovie(name, fileLink, categories);
 
         moviesToBeViewed.add(m);
     }

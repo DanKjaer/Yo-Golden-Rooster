@@ -1,6 +1,8 @@
 package BE;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Movie {
     private int id;
@@ -10,13 +12,13 @@ public class Movie {
     private String filelink;
     private Date lastview;
 
-    public Movie(int id, String name, String filelink) {
+    private List<Category> categories = new ArrayList<>();
+
+    public Movie(int id, String name, String filelink, List<Category> categories) {
         this.id = id;
         this.name = name;
-        //this.rating = rating;
-        //this.personalRating = personalRating;
         this.filelink = filelink;
-        //this.lastview = lastview;
+        this.categories = categories;
     }
 
     public Movie(int id, String name, float rating, String filelink, Date lastview) {
