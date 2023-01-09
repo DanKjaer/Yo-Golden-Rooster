@@ -44,10 +44,12 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 String filelink = rs.getString("filelink");
                 float rating = rs.getFloat("rating");
                 Date lastview = rs.getDate("lastview");
+                List<Category> categories = getMovieCategories(id, conn);
 
                 //Create Movie and add to list created in the beginning
-                Movie movie = new Movie(id,name,rating,filelink,lastview);
+                Movie movie = new Movie(id,name,rating,filelink,lastview, categories);
                 allMovies.add(movie);
+
             }
         } catch (Exception e){
             throw e;
@@ -130,7 +132,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
         }
     }
 
-    public void addCategoryToMovie(Category category, Movie movie, Connection con)throws Exception{
+    private void addCategoryToMovie(Category category, Movie movie, Connection con)throws Exception{
         //try(Connection con = dbCon.getConnection()){
 
             String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES (?,?);";
@@ -143,6 +145,25 @@ public class MovieDAO implements IMovieDatabaseAccess {
         //} catch(Exception e){
            // throw new Exception(e);
        // }
+    }
+    private List<Category> getMovieCategories(int movieId, Connection con) throws SQLException {
+        ArrayList<Category> movieCategories = new ArrayList<>();
+
+        String sql = "SELECT Category.* FROM CatMovie JOIN Category ON CategoryId = Category.Id WHERE movieId =?;";
+
+        PreparedStatement statement = con.prepareStatement(sql);
+        statement.setInt(1,movieId);
+        ResultSet rSet = statement.executeQuery();
+
+        while(rSet.next()){
+
+            int categoryId = rSet.getInt("id");
+            String name = rSet.getString("name");
+
+            Category category = new Category(categoryId, name);
+            movieCategories.add(category);
+        }
+        return movieCategories;
     }
 
 }

@@ -12,10 +12,8 @@ public class PmcModel {
 
     private ObservableList<Movie> moviesToBeViewed;
     private CategoryModel categoryModel;
-
     private ObservableList<Category> categoryToBeViewed;
     private MovieManager mManager;
-
 
     public PmcModel() throws Exception {
         categoryModel = new CategoryModel();
@@ -61,7 +59,6 @@ public class PmcModel {
         moviesToBeViewed.addAll(searchResults);
     }
 
-
     public void rateMovie (Movie ratedMovie,float rating) throws Exception {
             mManager.rateMovie(ratedMovie, rating);
     }
@@ -71,4 +68,3 @@ public class PmcModel {
 
     }
 }
-

@@ -166,7 +166,7 @@ public class PmcController extends BaseController {
         pmcModel = getModel();
 
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-        //clnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
         clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 

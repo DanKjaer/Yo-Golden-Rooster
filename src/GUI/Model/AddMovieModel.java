@@ -24,6 +24,7 @@ public class AddMovieModel {
         categoryToBeViewed.addAll(mManager.getCategories());
 
     }
+
     public ObservableList<Category> getCategories() throws Exception{
         return categoryToBeViewed;
     }
