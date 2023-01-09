@@ -17,7 +17,13 @@ public class Searcher {
     }
 
     private boolean compareRating(String query, Movie movie) {
-        return Float.toString(movie.getRating()).contains(query);
+        try{
+            float queryNumber = Float.parseFloat(query);
+            return movie.getRating() >= queryNumber;
+        }catch(Exception e){
+            return false;
+        }
+
     }
 
     private boolean compareTitle(String query, Movie movie) {
