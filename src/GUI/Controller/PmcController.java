@@ -62,6 +62,7 @@ public class PmcController extends BaseController {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
         btnDelete.setDisable(true);
+
     }
 
     private void checkOldMovie() {
@@ -96,6 +97,7 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add a new movie.
+     *
      * @param actionEvent
      */
     @FXML
@@ -114,7 +116,7 @@ public class PmcController extends BaseController {
             stage.setTitle("Add Movie");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setResizable(false);
-            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+            stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
             stage.showAndWait();
             updateMovieList();
         } catch (Exception e) {
@@ -125,14 +127,15 @@ public class PmcController extends BaseController {
 
     /**
      * Deletes selected movie from the list.
+     *
      * @param actionEvent
      */
     @FXML
     private void handleDelete(ActionEvent actionEvent) throws Exception {
-        try{
+        try {
             reMovieAlert();
             updateMovieList();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Could not delete movie", e);
         }
@@ -140,6 +143,7 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add and delete categories.
+     *
      * @param actionEvent
      */
     @FXML
@@ -158,7 +162,7 @@ public class PmcController extends BaseController {
             stage.setTitle("Category");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setResizable(false);
-            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+            stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
             stage.show();
         } catch (IOException e) {
             displayError(e);
@@ -167,13 +171,9 @@ public class PmcController extends BaseController {
     }
 
     @FXML
-    private void handleSearch(InputMethodEvent inputMethodEvent) {
-    }
-
-    @FXML
     private void handlePlay(ActionEvent actionEvent) {
         try {
-            Movie selectedMovie = (Movie)lstMovie.getSelectionModel().getSelectedItem();
+            Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             File file = new File(selectedMovie.getFilelink());
             Desktop.getDesktop().open(file);
             pmcModel.updateDateOnMovie(selectedMovie);
@@ -209,7 +209,7 @@ public class PmcController extends BaseController {
         pmcModel = getModel();
 
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-        //clnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
         clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
@@ -217,13 +217,13 @@ public class PmcController extends BaseController {
         lstMovie.setItems(pmcModel.getObservableMovies());
     }
 
-    public void reMovieAlert() throws Exception{
+    public void reMovieAlert() throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete that shit yo");
         alert.setHeaderText("Delete movie");
         alert.setContentText("Continue?");
         Optional<ButtonType> result = alert.showAndWait();
-        if(result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             pmcModel.reMovie(removedMovie);
         }
@@ -252,7 +252,12 @@ public class PmcController extends BaseController {
             } catch (Exception e) {
                 displayError(e);
                 e.printStackTrace();
+
             }
         });
+    }
+
+    public void onclickMovie (MouseEvent mouseEvent){
+
     }
 }
