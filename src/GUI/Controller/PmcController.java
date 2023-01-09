@@ -82,6 +82,7 @@ public class PmcController extends BaseController {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < lstMovie.getItems().size(); i++) {
+
             //Get last view, rating and title
             Movie movie = (Movie) lstMovie.getItems().get(i);
             Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
@@ -189,7 +190,7 @@ public class PmcController extends BaseController {
     }
 
     /**
-     *a button used to play the selected movie.
+     * Opens movie in default mediaplayer
      * @param actionEvent
      */
     @FXML

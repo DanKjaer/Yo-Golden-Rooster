@@ -41,7 +41,7 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
             }
             return allCategories;
         } catch (SQLException e){
-            throw new RuntimeException(e);
+            throw new RuntimeException("Could not get categories from database", e);
         }
     }
 
@@ -70,7 +70,7 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         }
         catch(SQLException e){
             e.printStackTrace();
-            throw new SQLException("Could not create category");
+            throw new SQLException("Could not create category", e);
         }
         Category mCat = new Category(id, category);
         return mCat;
