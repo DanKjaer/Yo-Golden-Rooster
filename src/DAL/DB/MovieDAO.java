@@ -86,6 +86,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     public void reMovie(Movie movie) throws Exception{
         try(Connection con = dbCon.getConnection()){
+            deleteMovieCategoryLink(movie, con);
             String sql = "DELETE FROM Movie WHERE id = ?;";
             PreparedStatement statement = con.prepareStatement(sql);
 
@@ -97,6 +98,14 @@ public class MovieDAO implements IMovieDatabaseAccess {
             e.printStackTrace();
             throw new Exception("Could not delete movie", e);
         }
+    }
+    private void deleteMovieCategoryLink(Movie movie, Connection con) throws SQLException {
+        String sql = "DELETE FROM CatMovie WHERE MovieId = ?;";
+        PreparedStatement statement = con.prepareStatement(sql);
+
+        statement.setInt(1,movie.getId());
+
+        statement.executeUpdate();
     }
 
     @Override
