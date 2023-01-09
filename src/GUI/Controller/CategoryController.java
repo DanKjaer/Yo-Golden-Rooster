@@ -26,6 +26,8 @@ public class CategoryController extends BaseController{
         categoryModel = getModel().getCategoryModel();
 
         updateCategoryList();
+        btnAdd.setDisable(true);
+        enableAdd();
     }
 
     /**
@@ -67,5 +69,12 @@ public class CategoryController extends BaseController{
 
         lstCategory.getColumns().addAll();
         lstCategory.setItems(categoryModel.getObservableCategories());
+    }
+
+    private void enableAdd(){
+        tfCategory.textProperty().addListener((observable, oldValue, newValue) -> {
+            boolean isTextFieldEmpty = newValue.trim().isEmpty();
+            btnAdd.setDisable(isTextFieldEmpty);
+        });
     }
 }
