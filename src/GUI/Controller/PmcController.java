@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 public class PmcController extends BaseController {
@@ -43,6 +45,8 @@ public class PmcController extends BaseController {
     @FXML
     private Text txtTitle, txtLastView, txtCategory, txtPersonalRating, txtRating;
     private PmcModel pmcModel;
+    private String oldMovies = "";
+    private boolean detectOldMovie;
 
     @Override
     public void setup() throws Exception {
@@ -50,6 +54,8 @@ public class PmcController extends BaseController {
         updateMovieList();
         search();
         disableButtons();
+        checkOldMovie();
+        alertOldMovie();
     }
 
     private void disableButtons() {
@@ -57,6 +63,36 @@ public class PmcController extends BaseController {
         btnRate.setDisable(true);
         btnDelete.setDisable(true);
 
+    }
+
+    private void checkOldMovie() {
+        //Get this day 2 years ago
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -2);
+        Date oldDate = calendar.getTime();
+
+        for (int i = 0; i < lstMovie.getItems().size(); i++) {
+            //Get last view and rating
+            Movie movie = (Movie) lstMovie.getItems().get(i);
+            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
+            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
+
+            //Display alert if rating is under 6 and is older than this day 2 years ago
+            if (rating < 6.0 && date.before(oldDate)) {
+                String title = (String) clnTitle.getCellObservableValue(movie).getValue();
+                oldMovies = oldMovies + title + " ";
+                detectOldMovie = true;
+            }
+        }
+    }
+
+    private void alertOldMovie() {
+        if (detectOldMovie) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Old Movie!");
+            alert.setHeaderText("You have a movie that haven't been watched for over two years with a rating below 6.0.\n" + "Old movie: " + oldMovies + ".");
+            alert.showAndWait();
+        }
     }
 
     /**
