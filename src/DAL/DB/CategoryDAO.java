@@ -13,6 +13,12 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         dbCon = new DatabaseConnector();
     }
 
+    /**
+     * This method uses an ArrayList to store all categories,
+     * and uses an SQL string to look up everything in the Category table.
+     * @return
+     * @throws SQLException
+     */
     public List<Category> getCategories() throws SQLException {
 
         //Make a list called allCategories, to store categories in, and return in the end
@@ -39,6 +45,12 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         }
     }
 
+    /**
+     * this method contains an SQL string which is used to add new category to the category table.
+     * @param category
+     * @return
+     * @throws SQLException
+     */
     public Category createCategory(String category) throws SQLException {
         String sql = "INSERT INTO Category (name) VALUES (?);";
 
@@ -64,6 +76,12 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         return mCat;
 
     }
+
+    /**
+     * This method contains an SQL string which is used to delete a category with a specified id in the category table.
+     * @param category
+     * @throws SQLException
+     */
     public void removeCategory(Category category) throws SQLException {
         try(Connection con = dbCon.getConnection()){
             String sql = "DELETE FROM Category WHERE id = ?;";

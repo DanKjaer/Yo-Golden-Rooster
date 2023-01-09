@@ -58,6 +58,9 @@ public class PmcController extends BaseController {
         alertOldMovie();
     }
 
+    /**
+     * disables the play, rate and delete button.
+     */
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
@@ -65,6 +68,9 @@ public class PmcController extends BaseController {
 
     }
 
+    /**
+     * checks whether a movie has been viewed in the last two years or not.
+     */
     private void checkOldMovie() {
         //Get this day 2 years ago
         Calendar calendar = Calendar.getInstance();
@@ -86,6 +92,9 @@ public class PmcController extends BaseController {
         }
     }
 
+    /**
+     * an alert that warns you when you haven't watched a movie for two years.
+     */
     private void alertOldMovie() {
         if (detectOldMovie) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -170,6 +179,10 @@ public class PmcController extends BaseController {
         }
     }
 
+    /**
+     *a button used to play the selected movie.
+     * @param actionEvent
+     */
     @FXML
     private void handlePlay(ActionEvent actionEvent) {
         try {
@@ -183,6 +196,11 @@ public class PmcController extends BaseController {
         }
     }
 
+    /**
+     * a button used to rate the selected movie.
+     * @param actionEvent
+     * @throws Exception
+     */
     @FXML
     private void handleRate(ActionEvent actionEvent) throws Exception {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
@@ -217,6 +235,10 @@ public class PmcController extends BaseController {
         lstMovie.setItems(pmcModel.getObservableMovies());
     }
 
+    /**
+     * An alert that asks if you're sure you wanna delete the movie.
+     * @throws Exception
+     */
     public void reMovieAlert() throws Exception {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Delete that shit yo");
@@ -229,6 +251,10 @@ public class PmcController extends BaseController {
         }
     }
 
+    /**+
+     * Removes the greyed out fields once you select a movie in the movie table, enabling rate, play and delete.
+     * @param mouseEvent
+     */
     public void onClickMovie(MouseEvent mouseEvent) {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
 
@@ -245,6 +271,9 @@ public class PmcController extends BaseController {
         btnDelete.setDisable(false);
     }
 
+    /**
+     * Enables the search function, making you able to search for either the title, category or rating.
+     */
     private void search(){
         tfSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
@@ -255,9 +284,5 @@ public class PmcController extends BaseController {
 
             }
         });
-    }
-
-    public void onclickMovie (MouseEvent mouseEvent){
-
     }
 }
