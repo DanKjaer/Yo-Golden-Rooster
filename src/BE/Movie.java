@@ -12,8 +12,7 @@ public class Movie {
     private String filelink;
     private Date lastview;
 
-    private List<Category> categories = new ArrayList<>();
-
+    private List<Category> categories;
     public Movie(int id, String name, String filelink, List<Category> categories) {
         this.id = id;
         this.name = name;
@@ -74,8 +73,15 @@ public class Movie {
     public void setLastview(Date lastview) {
         this.lastview = lastview;
     }
-
-    public List<Category> getCategories() {
-        return categories;
+    public String getCategories() {
+        String output = "";
+        for(int i=0; i<categories.size(); i++) {
+            if(i == categories.size()-1){
+                output += categories.get(i).getName();
+            }else{
+                output += categories.get(i).getName() + ", ";
+            }
+        }
+        return output;
     }
 }
