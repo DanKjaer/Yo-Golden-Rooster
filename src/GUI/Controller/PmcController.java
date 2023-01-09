@@ -220,13 +220,14 @@ public class PmcController extends BaseController {
      * Updates the list of movies from the database.
      */
     private void updateMovieList() throws Exception {
-        pmcModel = getModel();
-
+        //Gives every column a property to look for in given object
+        // It uses the get"X" from the object, to retrieve the values
         clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
         clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
+        //Add the Movies to the list
         lstMovie.getColumns().addAll();
         lstMovie.setItems(pmcModel.getObservableMovies());
     }
