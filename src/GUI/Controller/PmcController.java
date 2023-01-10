@@ -82,7 +82,6 @@ public class PmcController extends BaseController {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < lstMovie.getItems().size(); i++) {
-
             //Get last view, rating and title
             Movie movie = (Movie) lstMovie.getItems().get(i);
             Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
@@ -115,21 +114,22 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add a new movie.
-     * @param actionEvent
      */
     @FXML
     private void handleAdd(ActionEvent actionEvent) {
         try {
-            //Jeg ved ikke hvad jeg skal skrive til alt det her pis
+            //Creating a new stage with the add movie view
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddMovieView.fxml"));
             AnchorPane pane = null;
             pane = (AnchorPane) loader.load();
-            //Jeg ved ikke hvad jeg skal skrive til alt det her pis
+
+            //Setting controller and model for the new view.
             AddMovieController controller = loader.getController();
             controller.setModel(super.getModel());
             controller.setup();
-            //Jeg ved ikke hvad jeg skal skrive til alt det her pis
+
+            //Opens the add movie window.
             stage.setScene(new Scene(pane));
             stage.setTitle("Add Movie");
             stage.initModality(Modality.WINDOW_MODAL);
@@ -145,11 +145,9 @@ public class PmcController extends BaseController {
 
     /**
      * Deletes selected movie from the list.
-     *
-     * @param actionEvent
      */
     @FXML
-    private void handleDelete(ActionEvent actionEvent) throws Exception {
+    private void handleDelete(ActionEvent actionEvent) {
         try {
             reMovieAlert();
             updateMovieList();
@@ -176,7 +174,7 @@ public class PmcController extends BaseController {
             controller.setModel(super.getModel());
             controller.setup();
 
-            //Opens the edit category scene.
+            //Opens the edit category window.
             stage.setScene(new Scene(pane));
             stage.setTitle("Category");
             stage.initModality(Modality.WINDOW_MODAL);
@@ -192,12 +190,11 @@ public class PmcController extends BaseController {
 
     /**
      * Opens movie in default mediaplayer
-     * @param actionEvent
      */
     @FXML
     private void handlePlay(ActionEvent actionEvent) {
         try {
-            //Opens the selected movie on your desktop, using the file link.
+            //Opens the selected movie on your desktop, using the file link from the database.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             File file = new File(selectedMovie.getFilelink());
             Desktop.getDesktop().open(file);
@@ -211,8 +208,6 @@ public class PmcController extends BaseController {
 
     /**
      * a button used to rate the selected movie.
-     * @param actionEvent
-     * @throws Exception
      */
     @FXML
     private void handleRate(ActionEvent actionEvent) {
@@ -220,13 +215,16 @@ public class PmcController extends BaseController {
             //Selects a movie. Parses the textfield from a string to a float, so you can add numbers.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             float rating = Float.parseFloat(tfRating.getText());
+
             //Checks if the value is between 1 and 10, if it is, it'll update the movie list.
             if (rating >= 1 && rating <= 10) {
                 pmcModel.rateMovie(selectedMovie, rating);
                 updateMovieList();
                 tfRating.clear();
-            } else {
-                //If the value isn't between 1 and 10, an error will pop up.
+            }
+
+            //If the value isn't between 1 and 10, an error will pop up.
+            else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Something went wrong!");
                 alert.setHeaderText("Error with rating!");
