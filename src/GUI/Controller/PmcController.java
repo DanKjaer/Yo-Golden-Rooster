@@ -161,21 +161,21 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add and delete categories.
-     *
-     * @param actionEvent
      */
     @FXML
     private void handleEditCategory(ActionEvent actionEvent) {
         try {
-            //Jeg ved ikke hvad jeg skal skrive til alt det her pis
+            //Creating a new stage with the edit category view
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
             AnchorPane pane = null;
             pane = (AnchorPane) loader.load();
-            //Jeg ved ikke hvad jeg skal skrive til alt det her pis
+
+            //Setting controller and model for the new view.
             CategoryController controller = loader.getController();
             controller.setModel(super.getModel());
             controller.setup();
+
             //Opens the edit category scene.
             stage.setScene(new Scene(pane));
             stage.setTitle("Category");
@@ -183,6 +183,7 @@ public class PmcController extends BaseController {
             stage.setResizable(false);
             stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
             stage.show();
+
         } catch (IOException e) {
             displayError(e);
             e.printStackTrace();
@@ -242,7 +243,6 @@ public class PmcController extends BaseController {
     /**
      * Updates the list of movies from the database.
      */
-
     private void updateMovieList() {
         try {
             //Gives every column a property to look for in given object
@@ -264,10 +264,8 @@ public class PmcController extends BaseController {
 
     /**
      * An alert that asks if you're sure you want to delete the movie.
-     * @throws Exception
      */
     public void reMovieAlert() {
-
         try {
             //Opens an alert box
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -275,7 +273,9 @@ public class PmcController extends BaseController {
             alert.setHeaderText("Delete movie");
             alert.setContentText("Continue?");
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {//Removes the movie if you press Ok.
+
+            //Removes the movie if you press Ok.
+            if (result.get() == ButtonType.OK) {
                 Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
                 pmcModel.reMovie(removedMovie);
             }
@@ -309,10 +309,13 @@ public class PmcController extends BaseController {
     /**
      * Enables the search function, making you able to search for either the title, category or rating.
      */
-    private void search(){//Adds a listener to our search bar, making it able to update in real time.
+    private void search(){
+
+        //Adds a listener to our search bar, making it able to update in real time.
         tfSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
-                PmcModel.searchMovie(newValue);//Searches for the movie
+                //Parse search query down to model layer.
+                PmcModel.searchMovie(newValue);
             } catch (Exception e) {
                 displayError(e);
                 e.printStackTrace();
