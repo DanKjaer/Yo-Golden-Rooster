@@ -55,6 +55,7 @@ public class AddMovieController extends BaseController {
             model.createMovie(name,filePath, categories);
         } catch (Exception e) {
             e.printStackTrace();
+            displayError(e);
         }
     }
 
