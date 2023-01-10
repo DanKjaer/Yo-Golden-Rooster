@@ -33,7 +33,13 @@ public class Searcher {
      * @return - True if the query matches a rating.
      */
     private boolean compareRating(String query, Movie movie) {
-        return Float.toString(movie.getRating()).contains(query);
+        try{
+            float queryNumber = Float.parseFloat(query);
+            return movie.getRating() >= queryNumber;
+        }catch(Exception e){
+            return false;
+        }
+
     }
 
     /**
