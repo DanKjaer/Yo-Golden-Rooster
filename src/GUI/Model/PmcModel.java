@@ -11,8 +11,8 @@ import java.util.List;
 public class PmcModel {
 
     private static ObservableList<Movie> moviesToBeViewed;
-    private CategoryModel categoryModel;
-    private ObservableList<Category> categoryToBeViewed;
+    private final CategoryModel categoryModel;
+    private final ObservableList<Category> categoryToBeViewed;
     private static MovieManager mManager;
 
     public PmcModel() throws Exception {
@@ -55,7 +55,7 @@ public class PmcModel {
         moviesToBeViewed.addAll(mManager.getMovies());
     }
 
-    public ObservableList<Category> getCategories() throws Exception {
+    public ObservableList<Category> getCategories() {
         return categoryToBeViewed;
     }
 

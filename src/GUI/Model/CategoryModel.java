@@ -8,8 +8,8 @@ import javafx.collections.ObservableList;
 
 
 public class CategoryModel {
-    private ObservableList<Category> categoriesToBeViewed;
-    private MovieManager movieManager;
+    private final ObservableList<Category> categoriesToBeViewed;
+    private final MovieManager movieManager;
 
     public CategoryModel() throws Exception {
         movieManager = new MovieManager();
