@@ -36,13 +36,13 @@ public class PmcController extends BaseController {
     @FXML
     private TableColumn clnPersonalRating;
     @FXML
-    private Button btnPlay, btnRate, btnCategory, btnDelete, btnAdd;
+    private Button btnPlay, btnRate, btnDelete;
     @FXML
     private TextField tfRating;
     @FXML
     private ImageView imgMovie;
     @FXML
-    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating, txtRating;
+    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating;
     private PmcModel pmcModel;
     private String oldMovies = "";
     private boolean detectOldMovie;

@@ -16,7 +16,7 @@ public class CategoryController extends BaseController{
     @FXML
     private TextField tfCategory;
     @FXML
-    private Button btnAdd, btnDelete;
+    private Button btnAdd;
     @FXML
     private TableView lstCategory;
 
