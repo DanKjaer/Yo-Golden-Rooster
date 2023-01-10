@@ -82,13 +82,13 @@ public class AddMovieController extends BaseController {
         FileChooser fc = new FileChooser();
         Stage stage = (Stage) btnChoose.getScene().getWindow();
         fc.setTitle("Select a Movie");
-        //add valid filetypes
+        //Add valid filetypes
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Movie Files (*.mp4, *.mpeg4)", "*.mp4", "*.mpeg4"),
                 new FileChooser.ExtensionFilter("MP4 Files (*.mp4)", "*.mp4"),
                 new FileChooser.ExtensionFilter("MPEG4 Files (*.mpeg4)", "*.mpeg4")
         );
-        //put selected file into textfield
+        //Put selected file into textfield
         File f = fc.showOpenDialog(stage);
         tfFilePath.setText(f.getPath());
     }
