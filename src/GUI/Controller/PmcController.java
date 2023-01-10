@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -258,7 +257,6 @@ public class PmcController extends BaseController {
             e.printStackTrace();
         }
     }
-
 
     /**
      * An alert that asks if you're sure you want to delete the movie.
