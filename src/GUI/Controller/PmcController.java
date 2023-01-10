@@ -147,7 +147,7 @@ public class PmcController extends BaseController {
      * Deletes selected movie from the list.
      */
     @FXML
-    private void handleDelete(ActionEvent actionEvent) {
+    private void handleDelete() {
         try {
             reMovieAlert();
             updateMovieList();
@@ -192,7 +192,7 @@ public class PmcController extends BaseController {
      * Opens movie in default mediaplayer
      */
     @FXML
-    private void handlePlay(ActionEvent actionEvent) {
+    private void handlePlay() {
         try {
             //Opens the selected movie on your desktop, using the file link from the database.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
@@ -210,7 +210,7 @@ public class PmcController extends BaseController {
      * a button used to rate the selected movie.
      */
     @FXML
-    private void handleRate(ActionEvent actionEvent) {
+    private void handleRate() {
         try {
             //Selects a movie. Parses the textfield from a string to a float, so you can add numbers.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
@@ -263,7 +263,7 @@ public class PmcController extends BaseController {
     /**
      * An alert that asks if you're sure you want to delete the movie.
      */
-    public void reMovieAlert() {
+    private void reMovieAlert() {
         try {
             //Opens an alert box
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -285,9 +285,9 @@ public class PmcController extends BaseController {
 
     /**+
      * Removes the greyed out fields once you select a movie in the movie table, enabling rate, play and delete.
-     * @param mouseEvent
      */
-    public void onClickMovie(MouseEvent mouseEvent) {
+    @FXML
+    private void onClickMovie() {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
 
         txtTitle.setText(selectedMovie.getName());
@@ -308,7 +308,6 @@ public class PmcController extends BaseController {
      * Enables the search function, making you able to search for either the title, category or rating.
      */
     private void search(){
-
         //Adds a listener to our search bar, making it able to update in real time.
         tfSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {

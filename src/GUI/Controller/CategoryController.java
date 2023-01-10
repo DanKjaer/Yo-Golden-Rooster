@@ -32,10 +32,9 @@ public class CategoryController extends BaseController{
 
     /**
      * Adds a new category with the name provided by the user and clears the textfield.
-     * @param actionEvent
      */
     @FXML
-    private void handleAdd(ActionEvent actionEvent) {
+    private void handleAdd() {
         try {
             String category = tfCategory.getCharacters().toString();
             categoryModel.addCategory(category);
@@ -48,10 +47,9 @@ public class CategoryController extends BaseController{
 
     /**
      * Deletes selected category.
-     * @param actionEvent
      */
     @FXML
-    private void handleDelete(ActionEvent actionEvent) {
+    private void handleDelete() {
         try {
             Category selectedCategory = (Category) lstCategory.getSelectionModel().getSelectedItem();
             categoryModel.removeCategory(selectedCategory);

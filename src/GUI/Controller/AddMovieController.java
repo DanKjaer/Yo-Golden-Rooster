@@ -63,33 +63,37 @@ public class AddMovieController extends BaseController {
      * Cancel button closes the AddMovieController stage.
      * the method "Cancel" that's called, is used to close the stage
      * btnCancel refers to the cancel button
-     * @param actionEvent
      */
-
     @FXML
-    private void handleCancel(ActionEvent actionEvent) {
+    private void handleCancel() {
         cancel(btnCancel);
     }
 
     /**
      * FileChooser enables the choose button to open a local filepath.
      * f is the name of our file, and fc stands for filechooser.
-     * @param actionEvent
      */
     @FXML
-    private void handleChoose(ActionEvent actionEvent) {
-        //create new stage for picking files
-        FileChooser fc = new FileChooser();
-        Stage stage = (Stage) btnChoose.getScene().getWindow();
-        fc.setTitle("Select a Movie");
-        //Add valid filetypes
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Movie Files (*.mp4, *.mpeg4)", "*.mp4", "*.mpeg4"),
-                new FileChooser.ExtensionFilter("MP4 Files (*.mp4)", "*.mp4"),
-                new FileChooser.ExtensionFilter("MPEG4 Files (*.mpeg4)", "*.mpeg4")
-        );
-        //Put selected file into textfield
-        File f = fc.showOpenDialog(stage);
-        tfFilePath.setText(f.getPath());
+    private void handleChoose() {
+        try {
+            //create new stage for picking files
+            FileChooser fc = new FileChooser();
+            Stage stage = (Stage) btnChoose.getScene().getWindow();
+            fc.setTitle("Select a Movie");
+
+            //Add valid filetypes
+            fc.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Movie Files (*.mp4, *.mpeg4)", "*.mp4", "*.mpeg4"),
+                    new FileChooser.ExtensionFilter("MP4 Files (*.mp4)", "*.mp4"),
+                    new FileChooser.ExtensionFilter("MPEG4 Files (*.mpeg4)", "*.mpeg4")
+            );
+
+            //Put selected file into textfield
+            File f = fc.showOpenDialog(stage);
+            tfFilePath.setText(f.getPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            displayError(e);
+        }
     }
 }
