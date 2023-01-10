@@ -41,10 +41,9 @@ public class AddMovieController extends BaseController {
 
     /**
      * Saves a movie to our movie table, with the name, filepath and category of the movie.
-     * @param actionEvent
      */
     @FXML
-    private void handleSave(ActionEvent actionEvent) {
+    private void handleSave() {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
         ObservableList categories = lstCategory.getSelectionModel().getSelectedItems();

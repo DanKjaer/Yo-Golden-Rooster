@@ -32,6 +32,7 @@ public class Searcher {
      * @param movie - The movie the foreach loop have reached.
      * @return - True if the query matches a rating.
      */
+
     private boolean compareRating(String query, Movie movie) {
         try{
             float queryNumber = Float.parseFloat(query);
