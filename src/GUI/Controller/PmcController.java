@@ -11,12 +11,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.awt.*;
 import java.io.File;
@@ -112,6 +115,7 @@ public class PmcController extends BaseController {
             alert.showAndWait();
         }
     }
+
 
     /**
      * Opens a new window to add a new movie.
@@ -268,8 +272,11 @@ public class PmcController extends BaseController {
         }
     }
 
-    public void onClickMovie(MouseEvent mouseEvent) {
+    public void onClickMovie(MouseEvent mouseEvent) throws IOException {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+        Document doc = Jsoup.connect("https://www.imdb.com/title/tt0103776/?ref_=nv_sr_srsg_0").get();
+        String rating = doc.select("span[itemprop='ratingValue']").text();
+        String posterUrl = doc.select("div.poster > a > img").attr("src");
 
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
@@ -278,7 +285,8 @@ public class PmcController extends BaseController {
         } else {
             txtLastView.setText("Never seen");
         }
-        txtCategory.setText(selectedMovie.getCategories().toString());
+        txtCategory.setText(selectedMovie.getCategories());
+        txtRating.setText(rating);
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
