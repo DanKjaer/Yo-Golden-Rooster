@@ -20,8 +20,8 @@ public abstract class BaseController {
     public abstract void setup() throws Exception;
 
     /**
-     * 
-     * @param t
+     * Method used to display errors in the other controller classes
+     * @param t - the error that have been caught
      */
     public void displayError(Throwable t) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -30,6 +30,10 @@ public abstract class BaseController {
         alert.showAndWait();
     }
 
+    /**
+     * Method called in other controller classes, used to close windows in case of cancel button used.
+     * @param btn - the button pressed in the method.
+     */
     public void cancel(Button btn) {
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.close();
