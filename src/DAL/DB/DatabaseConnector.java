@@ -29,7 +29,7 @@ public class DatabaseConnector {
     /**
      * Gets the server IP from the config file.
      * @return - returns server IP as String.
-     * @throws IOException
+     * @throws IOException - Throws an exception, if there is a problem with the config file.
      */
     private String getServer() throws IOException {
         Properties properties = new Properties();
@@ -42,7 +42,7 @@ public class DatabaseConnector {
     /**
      * Gets the database name from the config file.
      * @return - returns database name as String.
-     * @throws IOException
+     * @throws IOException - Throws an exception, if there is a problem with the config file.
      */
     private String getDatabase() throws IOException {
         Properties properties = new Properties();
@@ -55,7 +55,7 @@ public class DatabaseConnector {
     /**
      * Gets the username from the config file.
      * @return - returns username as String.
-     * @throws IOException
+     * @throws IOException - Throws an exception, if there is a problem with the config file.
      */
     private String getUsername() throws IOException {
         Properties properties = new Properties();
@@ -68,10 +68,12 @@ public class DatabaseConnector {
     /**
      * Gets the password from the config file.
      * @return - returns password as String.
-     * @throws IOException
+     * @throws IOException - Throws an exception, if there is a problem with the config file.
      */
     private String getPassword() throws IOException {
+        //Create instance of properties
         Properties properties = new Properties();
+        //Create instance of fileInputStream
         FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
         properties.load(fileInputStream);
         String password = properties.getProperty("Password");
@@ -80,9 +82,8 @@ public class DatabaseConnector {
 
     /**
      * Test main to check if the connector works.
-     * @param args
-     * @throws SQLException
-     * @throws IOException
+     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * @throws IOException - Throws an exception, if there is a problem with the config file.
      */
     public static void main(String[] args) throws SQLException, IOException {
         //Create instance of connector

@@ -16,6 +16,15 @@ public class Searcher {
         return searchResult;
     }
 
+<<<<<<< Updated upstream
+=======
+    /**
+     * Sorts out numbers below the input, giving us a minimum rating.
+     * @param query - Query provided by user.
+     * @param movie - The movie the foreach loop have reached.
+     * @return - True if the query matches a rating.
+     */
+>>>>>>> Stashed changes
     private boolean compareRating(String query, Movie movie) {
         try{
             float queryNumber = Float.parseFloat(query);
