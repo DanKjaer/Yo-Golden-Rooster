@@ -6,7 +6,6 @@ import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
 
 public class CategoryModel {
     private ObservableList<Category> categoriesToBeViewed;
