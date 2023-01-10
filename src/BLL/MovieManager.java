@@ -14,10 +14,7 @@ public class MovieManager {
 
     private ICategoryDatabaseAccess categoryDAO;
     private IMovieDatabaseAccess movieDAO;
-
     private Searcher searcher;
-
-
 
     public MovieManager() throws IOException {
         movieDAO = new MovieDAO();

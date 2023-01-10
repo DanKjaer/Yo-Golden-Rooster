@@ -2,9 +2,6 @@ package DAL.DB;
 
 import BE.Category;
 import BE.Movie;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,11 +19,11 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     }
 
-
     /**
      * Retrieves movies from database and makes a list of them
      * @return an arraylist of movies from the database
      * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+
      */
     @Override
     public List<Movie> getMovies() throws SQLException {
@@ -59,11 +56,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
             }
         } catch (Exception e){
-            throw e;
+            throw new SQLException("Could not get movies from database", e);
         }
         return allMovies;
     }
-
 
     /**
      * Creates a new movie in the database
@@ -78,6 +74,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
         String sql = "INSERT INTO Movie (name, fileLink, lastview)VALUES (?,?,GETDATE());";
         int id = 0;
 
+        //Try with resources to connect to DB
         try(Connection con = dbCon.getConnection()){
             PreparedStatement statement = con.prepareStatement(sql, RETURN_GENERATED_KEYS);
 
@@ -91,16 +88,16 @@ public class MovieDAO implements IMovieDatabaseAccess {
             if(rSet.next());{
                 id = rSet.getInt(1);
             }
+            //Creates movie and connects it to categories
             Movie movie = new Movie(id, name, fileLink, categories);
             for(Category category: categories){
                 addCategoryToMovie(category, movie, con);
             }
             return movie;
         } catch (Exception e) {
-            throw new Exception(e);
+            throw new Exception("Could not create movie", e);
         }
     }
-
 
     /**
      * Removes movie from database
@@ -140,7 +137,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
         statement.executeUpdate();
     }
 
-
     /**
      * Updates movie in database with a personal rating
      * @param ratedMovie - References the movie that have been rated.
@@ -165,7 +161,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
         }
     }
 
-
     /**
      * Updates the date of the last view of the movie in the database
      * @param movie - Uses a row in our movie table to find a specified id.
@@ -183,7 +178,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
             statement.executeUpdate();
         }
         catch(Exception e){
-            throw new Exception(e);
+            throw new Exception("Could not update last view date of movie" ,e);
         }
     }
 
@@ -197,8 +192,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
      */
 
     private void addCategoryToMovie(Category category, Movie movie, Connection con)throws Exception{
-        //try(Connection con = dbCon.getConnection()){
-
             String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES (?,?);";
             PreparedStatement statement = con.prepareStatement(sql);
 
@@ -206,11 +199,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
             statement.setInt(2, movie.getId());
 
             statement.executeUpdate();
-        //} catch(Exception e){
-           // throw new Exception(e);
-       // }
     }
-
 
     /**
      * Gets the catagories connected to a movie and puts them into a list
