@@ -22,14 +22,12 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     }
 
-<<<<<<< Updated upstream
-=======
+
     /**
      * Retrieves movies from database and makes a list of them
      * @return an arraylist of movies from the database
      * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
      */
->>>>>>> Stashed changes
     @Override
     public List<Movie> getMovies() throws SQLException {
 
@@ -66,8 +64,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
         return allMovies;
     }
 
-<<<<<<< Updated upstream
-=======
+
     /**
      * Creates a new movie in the database
      * @param name - The name of the movie
@@ -76,7 +73,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
      * @return newly created movie
      * @throws Exception - Throws an exception if you could not create a movie.
      */
->>>>>>> Stashed changes
+
     public Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception{
         String sql = "INSERT INTO Movie (name, fileLink, lastview)VALUES (?,?,GETDATE());";
         int id = 0;
@@ -104,14 +101,13 @@ public class MovieDAO implements IMovieDatabaseAccess {
         }
     }
 
-<<<<<<< Updated upstream
-=======
+
     /**
      * Removes movie from database
      * @param movie - Movie refers to a table in our database.
      * @throws Exception - Throws an exception if deleting the movie failed.
      */
->>>>>>> Stashed changes
+
     public void reMovie(Movie movie) throws Exception{
         try(Connection con = dbCon.getConnection()){
             deleteMovieCategoryLink(movie, con);
@@ -127,8 +123,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
             throw new Exception("Could not delete movie", e);
         }
     }
-<<<<<<< Updated upstream
-=======
 
     /**
      * Removes movie connection to categories
@@ -136,7 +130,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
      * @param con - Connection, used to connect to the database, so we can skip the try/catch
      * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
      */
->>>>>>> Stashed changes
+
     private void deleteMovieCategoryLink(Movie movie, Connection con) throws SQLException {
         String sql = "DELETE FROM CatMovie WHERE MovieId = ?;";
         PreparedStatement statement = con.prepareStatement(sql);
@@ -146,15 +140,14 @@ public class MovieDAO implements IMovieDatabaseAccess {
         statement.executeUpdate();
     }
 
-<<<<<<< Updated upstream
-=======
+
     /**
      * Updates movie in database with a personal rating
      * @param ratedMovie - References the movie that have been rated.
      * @param rating - The rating given to a specified movie.
      * @throws Exception - Throws an exception if rating the song failed.
      */
->>>>>>> Stashed changes
+
     @Override
     public void rateMovie(Movie ratedMovie, float rating) throws Exception {
         try (Connection conn = dbCon.getConnection()) {
@@ -172,14 +165,13 @@ public class MovieDAO implements IMovieDatabaseAccess {
         }
     }
 
-<<<<<<< Updated upstream
-=======
+
     /**
      * Updates the date of the last view of the movie in the database
      * @param movie - Uses a row in our movie table to find a specified id.
      * @throws Exception - Throws an exception if the movie does not update.
      */
->>>>>>> Stashed changes
+
     public void updateDateOnMovie(Movie movie) throws Exception {
         String sql = "UPDATE Movie " +
                 "SET lastview = GETDATE() " +
@@ -195,8 +187,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
         }
     }
 
-<<<<<<< Updated upstream
-=======
+
     /**
      * Connects a movie and category
      * @param category - Uses the id from our category table.
@@ -204,7 +195,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
      * @param con - Used to connect to the database, without having to use a try/catch
      * @throws Exception - Throws an exception.
      */
->>>>>>> Stashed changes
+
     private void addCategoryToMovie(Category category, Movie movie, Connection con)throws Exception{
         //try(Connection con = dbCon.getConnection()){
 
@@ -219,8 +210,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
            // throw new Exception(e);
        // }
     }
-<<<<<<< Updated upstream
-=======
+
 
     /**
      * Gets the catagories connected to a movie and puts them into a list
@@ -229,7 +219,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
      * @return an arraylist of catagories
      * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
      */
->>>>>>> Stashed changes
+
     private List<Category> getMovieCategories(int movieId, Connection con) throws SQLException {
         //Makes an arraylist with movie categories.
         ArrayList<Category> movieCategories = new ArrayList<>();
