@@ -19,6 +19,10 @@ public abstract class BaseController {
 
     public abstract void setup() throws Exception;
 
+    /**
+     * 
+     * @param t
+     */
     public void displayError(Throwable t) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Something went wrong");
