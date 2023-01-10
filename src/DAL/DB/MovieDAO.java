@@ -22,7 +22,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
     /**
      * Retrieves movies from database and makes a list of them
      * @return an arraylist of movies from the database
-     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
 
      */
     @Override
@@ -63,11 +63,11 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Creates a new movie in the database
-     * @param name - The name of the movie
-     * @param fileLink - The local file path, used to find the mp4 and mpeg.
-     * @param categories - The categories of the movie.
+     * @param name - the name of the movie
+     * @param fileLink - the local file path, used to find the mp4 and mpeg.
+     * @param categories - the categories of the movie.
      * @return newly created movie
-     * @throws Exception - Throws an exception if you could not create a movie.
+     * @throws Exception - throws an exception if you could not create a movie.
      */
 
     public Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception{
@@ -101,8 +101,8 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Removes movie from database
-     * @param movie - Movie refers to a table in our database.
-     * @throws Exception - Throws an exception if deleting the movie failed.
+     * @param movie - movie refers to a table in our database.
+     * @throws Exception - throws an exception if deleting the movie failed.
      */
 
     public void reMovie(Movie movie) throws Exception{
@@ -122,10 +122,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
     }
 
     /**
-     * Removes movie connection to categories
-     * @param movie - The movie connection to the category
-     * @param con - Connection, used to connect to the database, so we can skip the try/catch
-     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * Removes movie connection from categories
+     * @param movie - the movie connection to the category
+     * @param con - connection, used to connect to the database, so we can skip the try/catch
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
 
     private void deleteMovieCategoryLink(Movie movie, Connection con) throws SQLException {
@@ -139,9 +139,9 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Updates movie in database with a personal rating
-     * @param ratedMovie - References the movie that have been rated.
-     * @param rating - The rating given to a specified movie.
-     * @throws Exception - Throws an exception if rating the song failed.
+     * @param ratedMovie - references the movie that have been rated.
+     * @param rating - the rating given to a specified movie.
+     * @throws Exception - throws an exception if rating the song failed.
      */
 
     @Override
@@ -163,8 +163,8 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Updates the date of the last view of the movie in the database
-     * @param movie - Uses a row in our movie table to find a specified id.
-     * @throws Exception - Throws an exception if the movie does not update.
+     * @param movie - uses a row in our movie table to find a specified id.
+     * @throws Exception - throws an exception if the movie does not update.
      */
 
     public void updateDateOnMovie(Movie movie) throws Exception {
@@ -185,10 +185,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Connects a movie and category
-     * @param category - Uses the id from our category table.
-     * @param movie - Uses the id from our movie table.
-     * @param con - Used to connect to the database, without having to use a try/catch
-     * @throws Exception - Throws an exception.
+     * @param category - uses the id from our category table.
+     * @param movie - uses the id from our movie table.
+     * @param con - used to connect to the database, without having to use a try/catch
+     * @throws Exception - throws an exception.
      */
 
     private void addCategoryToMovie(Category category, Movie movie, Connection con)throws Exception{
@@ -202,11 +202,11 @@ public class MovieDAO implements IMovieDatabaseAccess {
     }
 
     /**
-     * Gets the catagories connected to a movie and puts them into a list
+     * Gets the categories connected to a movie and puts them into a list
      * @param movieId - references the movieId column in our movie table.
-     * @param con - Used to connect to the database, without having to use a try/catch
-     * @return an arraylist of catagories
-     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * @param con - used to connect to the database, without having to use a try/catch
+     * @return an arraylist of categories
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
 
     private List<Category> getMovieCategories(int movieId, Connection con) throws SQLException {

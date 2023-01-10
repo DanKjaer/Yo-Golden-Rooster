@@ -207,7 +207,7 @@ public class PmcController extends BaseController {
     }
 
     /**
-     * a button used to rate the selected movie.
+     * A button used to rate the selected movie.
      */
     @FXML
     private void handleRate(ActionEvent actionEvent) {

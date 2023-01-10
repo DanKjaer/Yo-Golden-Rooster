@@ -16,8 +16,8 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
     /**
      * This method uses an ArrayList to store all categories,
      * and uses an SQL string to look up everything in the Category table.
-     * @return - Returns allCategories, which is a list of all the categories.
-     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * @return - returns allCategories, which is a list of all the categories.
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
     public List<Category> getCategories() throws SQLException {
 
@@ -47,9 +47,9 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
 
     /**
      * this method contains an SQL string which is used to add new category to the category table.
-     * @param category - Category is a table name in our SQL database.
-     * @return mCat - Returns a movie category
-     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * @param category - category is a table name in our SQL database.
+     * @return mCat - returns a movie category
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
     public Category createCategory(String category) throws SQLException {
         String sql = "INSERT INTO Category (name) VALUES (?);";
@@ -79,8 +79,8 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
 
     /**
      * This method contains an SQL string which is used to delete a category with a specified id in the category table.
-     * @param category - Category is a reference to a table in our database.
-     * @throws SQLException - Throws an exception, if there is a communication mishap with the database.
+     * @param category - category is a reference to a table in our database.
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
     public void removeCategory(Category category) throws SQLException {
         //Try with resources to connect to the database.
