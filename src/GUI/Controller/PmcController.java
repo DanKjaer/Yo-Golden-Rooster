@@ -294,7 +294,7 @@ public class PmcController extends BaseController {
         } else {
             txtLastView.setText("Never seen");
         }
-        txtCategory.setText(selectedMovie.getCategories().toString());
+        txtCategory.setText(selectedMovie.getCategories());
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
