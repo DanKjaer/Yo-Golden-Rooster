@@ -18,12 +18,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.net.URI;
+import java.util.*;
+import java.util.List;
 
 public class PmcController extends BaseController {
     @FXML
@@ -53,7 +56,7 @@ public class PmcController extends BaseController {
             updateMovieList();
             search();
             disableButtons();
-            checkOldMovie();
+            oldMovieList();
             alertOldMovie();
         } catch (Exception e) {
             displayError(e);
@@ -71,54 +74,52 @@ public class PmcController extends BaseController {
     }
 
     /**
-     * Checks the DB when the program starts for old movies with less than 6.0 rating
+     * Checks the DB when the program starts for old movies with less than 6.0 rating,
+     * and prepares a string to be show to the user if any is found.
      */
-    private void checkOldMovie() {
-        //Get this day 2 years ago
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -2);
-        Date oldDate = calendar.getTime();
+    private void checkOldMovie(List<Movie> list) {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < lstMovie.getItems().size(); i++) {
-            //Get last view, rating and title
-            Movie movie = (Movie) lstMovie.getItems().get(i);
-            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
-            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
-            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
+        for (int i = 0; i < list.size(); i++) {
 
-            //Add to oldMovies string
-            if (date.before(oldDate) && rating < 6.0) {
-                if(i == lstMovie.getItems().size()-1){
-                    sb.append(title);
-                }else{
-                    sb.append(title + ", ");
-                }
-                oldMovies = sb.toString();
-                detectOldMovie = true;
+            //Add to oldMovies string and add a comma if it isn't the last one
+            if(i == list.size()-1){
+                sb.append(list.get(i).getName());
+            }else{
+                sb.append(list.get(i).getName() + ", ");
             }
-        }
-    }
-
-    private void oldMovieList() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -2);
-        Date oldDate = calendar.getTime();
-
-        for (int i = 0; i < lstMovie.getItems().size(); i++) {
-            Movie movie = (Movie) lstMovie.getItems().get(i);
-            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
-            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
-            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
-
-            if (date.before(oldDate) && rating < 6.0) {
-                
-            }
+            oldMovies = sb.toString();
+            detectOldMovie = true;
         }
     }
 
     /**
-     * Displays an alert if detectOldMovie is true
+     * Checks for old movies and adds them to a list
+     */
+    private void oldMovieList() {
+
+        //Get this date 2 years ago
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -2);
+        Date oldDate = calendar.getTime();
+        List<Movie> list = new ArrayList<>();
+
+        //Go through the list of movies and check for old movies shit ratings under 6
+        for (int i = 0; i < lstMovie.getItems().size(); i++) {
+            Movie movie = (Movie) lstMovie.getItems().get(i);
+            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
+            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
+            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
+
+            if (date.before(oldDate) && rating < 6.0) {
+                list.add(movie);
+            }
+        }
+        checkOldMovie(list);
+    }
+
+    /**
+     * Displays an alert if detectOldMovie is true with the old movies listed.
      */
     private void alertOldMovie() {
         if (detectOldMovie) {
@@ -225,16 +226,16 @@ public class PmcController extends BaseController {
     }
 
     /**
-     * A button used to rate the selected movie.
+     * Rates the selected movie.
      */
     @FXML
     private void handleRate() {
         try {
-            //Selects a movie. Parses the textfield from a string to a float, so you can add numbers.
+            //Selects a movie. Parses the textfield from a string to a float.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             float rating = Float.parseFloat(tfRating.getText());
 
-            //Checks if the value is between 1 and 10, if it is, it'll update the movie list.
+            //Checks if the value is between 1 and 10, then updates the movie with the rating and the list of movies.
             if (rating >= 1 && rating <= 10) {
                 pmcModel.rateMovie(selectedMovie, rating);
                 updateMovieList();
@@ -262,7 +263,7 @@ public class PmcController extends BaseController {
     private void updateMovieList() {
         try {
             //Gives every column a property to look for in given object
-            // It uses the get"X" from the object, to retrieve the values
+            // It uses the getters from the object, to retrieve the values
             clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
             clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
             clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
@@ -285,7 +286,7 @@ public class PmcController extends BaseController {
             //Opens an alert box
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete that shit yo");
-            alert.setHeaderText("Delete movie");
+            alert.setHeaderText("You are about to delete a movie");
             alert.setContentText("Continue?");
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -300,32 +301,40 @@ public class PmcController extends BaseController {
         }
     }
 
-    /**+
-     * Removes the greyed out fields once you select a movie in the movie table, enabling rate, play and delete.
+    /**
+     * Adds extra info of the movie from the DB
+     * @param mouseEvent
+     * @throws IOException
      */
-    public void onClickMovie(MouseEvent mouseEvent) throws IOException {
-        Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
-        //String URL = selectedMovie;
-        //Document doc = Jsoup.connect(URL).get();
-        //String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
-        //String poster = doc.select("img.ipc-image").attr("src");
+    public void onClickMovie(MouseEvent mouseEvent) {
+        try {
+            //Gets the selected movie and scrapes imdb page for their rating and poster
+            Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+            String URL = selectedMovie.getWebsite();
+            Document doc = Jsoup.connect(URL).get();
+            String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
+            String poster = doc.select("img.ipc-image").attr("src");
 
-        txtTitle.setText(selectedMovie.getName());
-        txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
-        if (selectedMovie.getLastview() != null) {
+            //Adds all the additional info
+            txtTitle.setText(selectedMovie.getName());
+            txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
             txtLastView.setText(String.valueOf(selectedMovie.getLastview()));
-        } else {
-            txtLastView.setText("Never seen");
-        }
-        txtCategory.setText(selectedMovie.getCategories());
+            txtCategory.setText(selectedMovie.getCategories());
+            txtRating.setText(rating.substring(0,3));
+            imgMovie.setImage(new Image(poster));
 
-        btnRate.setDisable(false);
-        btnPlay.setDisable(false);
-        btnDelete.setDisable(false);
+            //Enables the rate, play and delete buttons
+            btnRate.setDisable(false);
+            btnPlay.setDisable(false);
+            btnDelete.setDisable(false);
+        } catch (IOException e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Enables the search function, making you able to search for either the title, category or rating.
+     * Enables the search function, making you able to search for either the title, category or rating in real time.
      */
     private void search(){
         //Adds a listener to our search bar, making it able to update in real time.
@@ -338,5 +347,19 @@ public class PmcController extends BaseController {
                 e.printStackTrace();
             }
         });
+    }
+
+    /**
+     * Opens the url of the movie on your standard browser.
+     * @param actionEvent
+     */
+    public void handleImdb(ActionEvent actionEvent) {
+        try {
+            Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+            Desktop.getDesktop().browse(URI.create(selectedMovie.getWebsite()));
+        } catch (IOException e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 }

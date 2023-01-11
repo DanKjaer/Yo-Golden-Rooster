@@ -28,6 +28,7 @@ public class AddMovieController extends BaseController {
     public void setup() {
         try {
             model = new PmcModel();
+            //Creates a list of categories to be shown and allows the user to select multiple.
             lstCategory.setItems(model.getCategories());
             lstCategory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         } catch (Exception e) {
@@ -38,7 +39,7 @@ public class AddMovieController extends BaseController {
     }
 
     /**
-     * Saves a movie to our movie table, with the name, filepath and category of the movie.
+     * Saves a movie to our DB, with the name, filepath, website url and category of the movie.
      */
     @FXML
     private void handleSave() {
@@ -68,24 +69,23 @@ public class AddMovieController extends BaseController {
 
     /**
      * FileChooser enables the choose button to open a local filepath.
-     * f is the name of our file, and fc stands for filechooser.
      */
     @FXML
     private void handleChoose() {
         try {
             //create new stage for picking files
-            FileChooser fc = new FileChooser();
+            FileChooser fileChooser = new FileChooser();
             Stage stage = (Stage) btnChoose.getScene().getWindow();
-            fc.setTitle("Select a Movie");
+            fileChooser.setTitle("Select a Movie");
             //Add valid filetypes
-            fc.getExtensionFilters().addAll(
+            fileChooser.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Movie Files (*.mp4, *.mpeg4)", "*.mp4", "*.mpeg4"),
                     new FileChooser.ExtensionFilter("MP4 Files (*.mp4)", "*.mp4"),
                     new FileChooser.ExtensionFilter("MPEG4 Files (*.mpeg4)", "*.mpeg4")
             );
             //Put selected file into textfield
-            File f = fc.showOpenDialog(stage);
-            tfFilePath.setText(f.getPath());
+            File file = fileChooser.showOpenDialog(stage);
+            tfFilePath.setText(file.getPath());
         } catch (Exception e) {
             e.printStackTrace();
             displayError(e);
