@@ -12,7 +12,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class MovieDAO implements IMovieDatabaseAccess {
 
-    private DatabaseConnector dbCon;
+    private final DatabaseConnector dbCon;
 
     public MovieDAO() throws IOException {
         dbCon = new DatabaseConnector();

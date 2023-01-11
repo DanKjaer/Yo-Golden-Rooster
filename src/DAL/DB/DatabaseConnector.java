@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnector {
-    private SQLServerDataSource dataSource;
+    private final SQLServerDataSource dataSource;
 
     public DatabaseConnector() throws IOException {
         dataSource = new SQLServerDataSource();

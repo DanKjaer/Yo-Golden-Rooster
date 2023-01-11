@@ -5,7 +5,6 @@ import BE.Movie;
 import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.util.List;
 
 public class PmcModel {
@@ -41,7 +40,6 @@ public class PmcModel {
     public CategoryModel getCategoryModel() {
         return categoryModel;
     }
-
 
     public void createMovie(String name, String fileLink, List<Category> categories) throws Exception{
         Movie m = mManager.createMovie(name, fileLink, categories);

@@ -2,7 +2,6 @@ package GUI.Controller;
 
 import BE.Category;
 import GUI.Model.CategoryModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
