@@ -1,5 +1,8 @@
 package BE;
 
+/**
+ * BE layer is accessed by all other classes, but cannot access any of them.
+ */
 public class Category {
     private int id;
     private String name;

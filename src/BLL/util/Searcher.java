@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Searcher {
+
     /**
      * The main search method which is called from MovieManager.
      * It goes through a list of movies, and the query from the user.

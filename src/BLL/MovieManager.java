@@ -7,9 +7,12 @@ import DAL.DB.CategoryDAO;
 import DAL.DB.ICategoryDatabaseAccess;
 import DAL.DB.IMovieDatabaseAccess;
 import DAL.DB.MovieDAO;
-
 import java.io.IOException;
 import java.util.List;
+
+/**
+ * The methods of MovieManager gets called from the Model layer, and sends information onwards to the DAL
+ */
 public class MovieManager {
 
     private final ICategoryDatabaseAccess categoryDAO;

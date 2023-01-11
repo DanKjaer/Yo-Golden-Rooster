@@ -5,7 +5,12 @@ import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * The methods of CategoryModel gets called from the controller, and sends information onwards to the manager in BLL
+ * categoriesToBeViewed is an ObservableList containing the categories of our private movie collection.
+ */
 public class CategoryModel {
+
     private final ObservableList<Category> categoriesToBeViewed;
     private final MovieManager movieManager;
 
