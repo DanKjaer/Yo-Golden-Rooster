@@ -72,7 +72,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
      */
 
     public Movie createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception{
-        String sql = "INSERT INTO Movie (name, fileLink, lastview, url)VALUES (?,?,GETDATE(),?);";
+        String sql = "INSERT INTO Movie (name, fileLink, lastview, website)VALUES (?,?,GETDATE(),?);";
         int id = 0;
 
         //Try with resources to connect to DB
