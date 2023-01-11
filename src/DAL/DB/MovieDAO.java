@@ -48,7 +48,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 String filelink = rs.getString("filelink");
                 float rating = rs.getFloat("rating");
                 Date lastview = rs.getDate("lastview");
-                String website = rs.getString("website");
                 List<Category> categories = getMovieCategories(id, conn);
                 String website = rs.getString("website");
 
