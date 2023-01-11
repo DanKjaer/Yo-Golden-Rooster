@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -303,10 +302,8 @@ public class PmcController extends BaseController {
 
     /**
      * Adds extra info of the movie from the DB
-     * @param mouseEvent
-     * @throws IOException
      */
-    public void onClickMovie(MouseEvent mouseEvent) {
+    public void onClickMovie() {
         try {
             //Gets the selected movie and scrapes imdb page for their rating and poster
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
@@ -351,9 +348,8 @@ public class PmcController extends BaseController {
 
     /**
      * Opens the url of the movie on your standard browser.
-     * @param actionEvent
      */
-    public void handleImdb(ActionEvent actionEvent) {
+    public void handleImdb() {
         try {
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             Desktop.getDesktop().browse(URI.create(selectedMovie.getWebsite()));
