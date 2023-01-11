@@ -43,8 +43,6 @@ public class PmcModel {
 
     public void createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception{
         Movie m = mManager.createMovie(name, fileLink, categories, website);
-
-
         moviesToBeViewed.add(m);
     }
 
