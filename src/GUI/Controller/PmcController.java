@@ -274,9 +274,10 @@ public class PmcController extends BaseController {
 
     public void onClickMovie(MouseEvent mouseEvent) throws IOException {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
-        Document doc = Jsoup.connect("https://www.imdb.com/title/tt0103776/?ref_=nv_sr_srsg_0").get();
-        String rating = doc.select("span[itemprop='ratingValue']").text();
-        String posterUrl = doc.select("div.poster > a > img").attr("src");
+        String imdbUrl = "https://www.imdb.com/title/tt0103776/?ref_=nv_sr_srsg_0";
+        Document doc = Jsoup.connect(imdbUrl).get();
+        String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
+        String poster = doc.select("img.ipc-image").attr("src");
 
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
@@ -286,7 +287,8 @@ public class PmcController extends BaseController {
             txtLastView.setText("Never seen");
         }
         txtCategory.setText(selectedMovie.getCategories());
-        txtRating.setText(rating);
+        txtRating.setText(rating.substring(0,3));
+        imgMovie.setImage(new Image(poster));
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
