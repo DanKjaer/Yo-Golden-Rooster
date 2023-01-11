@@ -13,6 +13,12 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         dbCon = new DatabaseConnector();
     }
 
+    /**
+     * This method uses an ArrayList to store all categories,
+     * and uses an SQL string to look up everything in the Category table.
+     * @return - returns allCategories, which is a list of all the categories.
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
+     */
     public List<Category> getCategories() throws SQLException {
 
         //Make a list called allCategories, to store categories in, and return in the end
@@ -39,11 +45,17 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         }
     }
 
+    /**
+     * this method contains an SQL string which is used to add new category to the category table.
+     * @param category - category is a table name in our SQL database.
+     * @return mCat - returns a movie category
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
+     */
     public Category createCategory(String category) throws SQLException {
         String sql = "INSERT INTO Category (name) VALUES (?);";
 
         int id = 0;
-
+        //Try with resources to connect to the database.
         try(Connection con = dbCon.getConnection()) {
             PreparedStatement statement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -64,7 +76,14 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
         return mCat;
 
     }
+
+    /**
+     * This method contains an SQL string which is used to delete a category with a specified id in the category table.
+     * @param category - category is a reference to a table in our database.
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
+     */
     public void removeCategory(Category category) throws SQLException {
+        //Try with resources to connect to the database.
         try(Connection con = dbCon.getConnection()){
             String sql = "DELETE FROM Category WHERE id = ?;";
             PreparedStatement statement = con.prepareStatement(sql);
@@ -80,5 +99,3 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
     }
 
 }
-
-//Action, animation, comedy, crime, drama, film noir, horror, thriller, war, western.

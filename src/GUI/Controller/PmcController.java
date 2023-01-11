@@ -18,9 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +25,6 @@ import java.util.*;
 import java.util.List;
 
 public class PmcController extends BaseController {
-
     @FXML
     private TextField tfSearch;
     @FXML
@@ -38,7 +34,7 @@ public class PmcController extends BaseController {
     @FXML
     private TableColumn clnPersonalRating;
     @FXML
-    private Button btnPlay, btnRate, btnCategory, btnDelete, btnAdd;
+    private Button btnPlay, btnRate, btnDelete;
     @FXML
     private TextField tfRating;
     @FXML
@@ -65,7 +61,7 @@ public class PmcController extends BaseController {
     }
 
     /**
-     * Disables buttons to prevent to use buttons
+     * Disables the play, rate and delete button.
      */
     private void disableButtons() {
         btnPlay.setDisable(true);
@@ -132,21 +128,22 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add a new movie.
-     *
-     * @param actionEvent
      */
     @FXML
     private void handleAdd(ActionEvent actionEvent) {
         try {
+            //Creating a new stage with the add movie view
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddMovieView.fxml"));
             AnchorPane pane = null;
             pane = (AnchorPane) loader.load();
 
+            //Setting controller and model for the new view.
             AddMovieController controller = loader.getController();
             controller.setModel(super.getModel());
             controller.setup();
 
+            //Opens the add movie window.
             stage.setScene(new Scene(pane));
             stage.setTitle("Add Movie");
             stage.initModality(Modality.WINDOW_MODAL);
@@ -162,11 +159,9 @@ public class PmcController extends BaseController {
 
     /**
      * Deletes selected movie from the list.
-     *
-     * @param actionEvent
      */
     @FXML
-    private void handleDelete(ActionEvent actionEvent) throws Exception {
+    private void handleDelete() {
         try {
             reMovieAlert();
             updateMovieList();
@@ -178,27 +173,29 @@ public class PmcController extends BaseController {
 
     /**
      * Opens a new window to add and delete categories.
-     *
-     * @param actionEvent
      */
     @FXML
     private void handleEditCategory(ActionEvent actionEvent) {
         try {
+            //Creating a new stage with the edit category view
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
             AnchorPane pane = null;
             pane = (AnchorPane) loader.load();
 
+            //Setting controller and model for the new view.
             CategoryController controller = loader.getController();
             controller.setModel(super.getModel());
             controller.setup();
 
+            //Opens the edit category window.
             stage.setScene(new Scene(pane));
             stage.setTitle("Category");
             stage.initModality(Modality.WINDOW_MODAL);
             stage.setResizable(false);
             stage.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
             stage.show();
+
         } catch (IOException e) {
             displayError(e);
             e.printStackTrace();
@@ -207,11 +204,11 @@ public class PmcController extends BaseController {
 
     /**
      * Opens movie in default mediaplayer
-     * @param actionEvent
      */
     @FXML
-    private void handlePlay(ActionEvent actionEvent) {
+    private void handlePlay() {
         try {
+            //Opens the selected movie on your desktop, using the file link from the database.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             File file = new File(selectedMovie.getFilelink());
             Desktop.getDesktop().open(file);
@@ -223,17 +220,25 @@ public class PmcController extends BaseController {
         }
     }
 
+    /**
+     * A button used to rate the selected movie.
+     */
     @FXML
-    private void handleRate(ActionEvent actionEvent) {
+    private void handleRate() {
         try {
+            //Selects a movie. Parses the textfield from a string to a float, so you can add numbers.
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
             float rating = Float.parseFloat(tfRating.getText());
 
+            //Checks if the value is between 1 and 10, if it is, it'll update the movie list.
             if (rating >= 1 && rating <= 10) {
                 pmcModel.rateMovie(selectedMovie, rating);
                 updateMovieList();
                 tfRating.clear();
-            } else {
+            }
+
+            //If the value isn't between 1 and 10, an error will pop up.
+            else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Something went wrong!");
                 alert.setHeaderText("Error with rating!");
@@ -245,7 +250,6 @@ public class PmcController extends BaseController {
             displayError(e);
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -253,13 +257,14 @@ public class PmcController extends BaseController {
      */
     private void updateMovieList() {
         try {
-            pmcModel = getModel();
-
+            //Gives every column a property to look for in given object
+            // It uses the get"X" from the object, to retrieve the values
             clnTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
             clnCategory.setCellValueFactory(new PropertyValueFactory<>("categories"));
             clnPersonalRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
             clnLastView.setCellValueFactory(new PropertyValueFactory<>("lastview"));
 
+            //Add the Movies to the list
             lstMovie.getColumns().addAll();
             lstMovie.setItems(pmcModel.getObservableMovies());
         } catch (Exception e) {
@@ -268,13 +273,19 @@ public class PmcController extends BaseController {
         }
     }
 
-    public void reMovieAlert() {
+    /**
+     * An alert that asks if you're sure you want to delete the movie.
+     */
+    private void reMovieAlert() {
         try {
+            //Opens an alert box
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete that shit yo");
             alert.setHeaderText("Delete movie");
             alert.setContentText("Continue?");
             Optional<ButtonType> result = alert.showAndWait();
+
+            //Removes the movie if you press Ok.
             if (result.get() == ButtonType.OK) {
                 Movie removedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
                 pmcModel.reMovie(removedMovie);
@@ -307,22 +318,24 @@ public class PmcController extends BaseController {
             txtLastView.setText("Never seen");
         }
         txtCategory.setText(selectedMovie.getCategories());
-        //txtRating.setText(rating.substring(0,3));
-        //imgMovie.setImage(new Image(poster));
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
         btnDelete.setDisable(false);
     }
 
+    /**
+     * Enables the search function, making you able to search for either the title, category or rating.
+     */
     private void search(){
+        //Adds a listener to our search bar, making it able to update in real time.
         tfSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
+                //Parse search query down to model layer.
                 PmcModel.searchMovie(newValue);
             } catch (Exception e) {
                 displayError(e);
                 e.printStackTrace();
-
             }
         });
     }

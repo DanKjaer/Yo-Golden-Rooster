@@ -12,7 +12,7 @@ import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class MovieDAO implements IMovieDatabaseAccess {
 
-    private DatabaseConnector dbCon;
+    private final DatabaseConnector dbCon;
 
     public MovieDAO() throws IOException {
         dbCon = new DatabaseConnector();
@@ -22,7 +22,8 @@ public class MovieDAO implements IMovieDatabaseAccess {
     /**
      * Retrieves movies from database and makes a list of them
      * @return an arraylist of movies from the database
-     * @throws SQLException
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
+
      */
     @Override
     public List<Movie> getMovies() throws SQLException {
@@ -48,9 +49,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 float rating = rs.getFloat("rating");
                 Date lastview = rs.getDate("lastview");
                 List<Category> categories = getMovieCategories(id, conn);
+                String website = rs.getString("website");
 
                 //Create Movie and add to list created in the beginning
-                Movie movie = new Movie(id,name,rating,filelink,lastview, categories);
+                Movie movie = new Movie(id,name,rating,filelink,lastview, categories, website);
                 allMovies.add(movie);
 
             }
@@ -62,14 +64,15 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Creates a new movie in the database
-     * @param name
-     * @param fileLink
-     * @param categories
+     * @param name - the name of the movie
+     * @param fileLink - the local file path, used to find the mp4 and mpeg.
+     * @param categories - the categories of the movie.
      * @return newly created movie
-     * @throws Exception
+     * @throws Exception - throws an exception if you could not create a movie.
      */
-    public Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception{
-        String sql = "INSERT INTO Movie (name, fileLink, lastview)VALUES (?,?,GETDATE());";
+
+    public Movie createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception{
+        String sql = "INSERT INTO Movie (name, fileLink, lastview, website)VALUES (?,?,GETDATE(),?);";
         int id = 0;
 
         //Try with resources to connect to DB
@@ -78,7 +81,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
             statement.setString(1, name);
             statement.setString(2, fileLink);
-
+            statement.setString(3, website);
             statement.executeUpdate();
 
             ResultSet rSet = statement.getGeneratedKeys();
@@ -87,7 +90,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 id = rSet.getInt(1);
             }
             //Creates movie and connects it to categories
-            Movie movie = new Movie(id, name, fileLink, categories);
+            Movie movie = new Movie(id, name, fileLink, categories, website);
             for(Category category: categories){
                 addCategoryToMovie(category, movie, con);
             }
@@ -99,9 +102,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Removes movie from database
-     * @param movie
-     * @throws Exception
+     * @param movie - movie refers to a table in our database.
+     * @throws Exception - throws an exception if deleting the movie failed.
      */
+
     public void reMovie(Movie movie) throws Exception{
         try(Connection con = dbCon.getConnection()){
             deleteMovieCategoryLink(movie, con);
@@ -119,11 +123,12 @@ public class MovieDAO implements IMovieDatabaseAccess {
     }
 
     /**
-     * Removes movie connection to categories
-     * @param movie
-     * @param con
-     * @throws SQLException
+     * Removes movie connection from categories
+     * @param movie - the movie connection to the category
+     * @param con - connection, used to connect to the database, so we can skip the try/catch
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
+
     private void deleteMovieCategoryLink(Movie movie, Connection con) throws SQLException {
         String sql = "DELETE FROM CatMovie WHERE MovieId = ?;";
         PreparedStatement statement = con.prepareStatement(sql);
@@ -135,10 +140,11 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Updates movie in database with a personal rating
-     * @param ratedMovie
-     * @param rating
-     * @throws Exception
+     * @param ratedMovie - references the movie that have been rated.
+     * @param rating - the rating given to a specified movie.
+     * @throws Exception - throws an exception if rating the song failed.
      */
+
     @Override
     public void rateMovie(Movie ratedMovie, float rating) throws Exception {
         try (Connection conn = dbCon.getConnection()) {
@@ -158,9 +164,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     /**
      * Updates the date of the last view of the movie in the database
-     * @param movie
-     * @throws Exception
+     * @param movie - uses a row in our movie table to find a specified id.
+     * @throws Exception - throws an exception if the movie does not update.
      */
+
     public void updateDateOnMovie(Movie movie) throws Exception {
         String sql = "UPDATE Movie " +
                 "SET lastview = GETDATE() " +
@@ -176,13 +183,15 @@ public class MovieDAO implements IMovieDatabaseAccess {
         }
     }
 
+
     /**
      * Connects a movie and category
-     * @param category
-     * @param movie
-     * @param con
-     * @throws Exception
+     * @param category - uses the id from our category table.
+     * @param movie - uses the id from our movie table.
+     * @param con - used to connect to the database, without having to use a try/catch
+     * @throws Exception - throws an exception.
      */
+
     private void addCategoryToMovie(Category category, Movie movie, Connection con)throws Exception{
             String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES (?,?);";
             PreparedStatement statement = con.prepareStatement(sql);
@@ -194,15 +203,18 @@ public class MovieDAO implements IMovieDatabaseAccess {
     }
 
     /**
-     * Gets the catagories connected to a movie and puts them into a list
-     * @param movieId
-     * @param con
-     * @return an arraylist of catagories
-     * @throws SQLException
+     * Gets the categories connected to a movie and puts them into a list
+     * @param movieId - references the movieId column in our movie table.
+     * @param con - used to connect to the database, without having to use a try/catch
+     * @return an arraylist of categories
+     * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
-    private List<Category> getMovieCategories(int movieId, Connection con) throws SQLException {
-        ArrayList<Category> movieCategories = new ArrayList<>();
 
+    private List<Category> getMovieCategories(int movieId, Connection con) throws SQLException {
+        //Makes an arraylist with movie categories.
+        ArrayList<Category> movieCategories = new ArrayList<>();
+        //An SQL string that selects everything from category, and searches for a specified
+        //Id in category and Movie, then joins it in the CatMovie table.
         String sql = "SELECT Category.* FROM CatMovie JOIN Category ON CategoryId = Category.Id WHERE movieId =?;";
 
         PreparedStatement statement = con.prepareStatement(sql);

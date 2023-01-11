@@ -2,7 +2,6 @@ package GUI.Controller;
 
 import BE.Category;
 import GUI.Model.CategoryModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -11,11 +10,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class CategoryController extends BaseController{
-    public TableColumn clnCategory;
+    @FXML
+    private TableColumn clnCategory;
     @FXML
     private TextField tfCategory;
     @FXML
-    private Button btnAdd, btnDelete;
+    private Button btnAdd;
     @FXML
     private TableView lstCategory;
 
@@ -26,15 +26,14 @@ public class CategoryController extends BaseController{
         categoryModel = getModel().getCategoryModel();
 
         updateCategoryList();
-        btnAdd.setDisable(true);
-        enableAdd();
+        disableAdd();
     }
 
     /**
      * Adds a new category with the name provided by the user and clears the textfield.
-     * @param actionEvent
      */
-    public void handleAdd(ActionEvent actionEvent) {
+    @FXML
+    private void handleAdd() {
         try {
             String category = tfCategory.getCharacters().toString();
             categoryModel.addCategory(category);
@@ -47,9 +46,9 @@ public class CategoryController extends BaseController{
 
     /**
      * Deletes selected category.
-     * @param actionEvent
      */
-    public void handleDelete(ActionEvent actionEvent) {
+    @FXML
+    private void handleDelete() {
         try {
             Category selectedCategory = (Category) lstCategory.getSelectionModel().getSelectedItem();
             categoryModel.removeCategory(selectedCategory);
@@ -71,7 +70,10 @@ public class CategoryController extends BaseController{
         lstCategory.setItems(categoryModel.getObservableCategories());
     }
 
-    private void enableAdd(){
+    /**
+     * Disables the add button, if nothing has been written in the text field.
+     */
+    private void disableAdd(){
         tfCategory.textProperty().addListener((observable, oldValue, newValue) -> {
             boolean isTextFieldEmpty = newValue.trim().isEmpty();
             btnAdd.setDisable(isTextFieldEmpty);

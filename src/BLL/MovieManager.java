@@ -14,10 +14,7 @@ public class MovieManager {
 
     private ICategoryDatabaseAccess categoryDAO;
     private IMovieDatabaseAccess movieDAO;
-
     private Searcher searcher;
-
-
 
     public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
@@ -38,8 +35,8 @@ public class MovieManager {
         categoryDAO.removeCategory(deletedCategory);
     }
     
-    public Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception {
-        return movieDAO.createMovie(name, fileLink, categories);
+    public Movie createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception {
+        return movieDAO.createMovie(name, fileLink, categories, website);
     }
 
     public void reMovie(Movie removedMovie) throws Exception{

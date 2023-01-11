@@ -10,7 +10,7 @@ public interface IMovieDatabaseAccess {
 
     List<Movie> getMovies() throws SQLException;
 
-    Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception;
+    Movie createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception;
 
     void reMovie(Movie movie) throws Exception;
 

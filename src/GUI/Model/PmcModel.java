@@ -5,14 +5,13 @@ import BE.Movie;
 import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.util.List;
 
 public class PmcModel {
 
     private static ObservableList<Movie> moviesToBeViewed;
-    private CategoryModel categoryModel;
-    private ObservableList<Category> categoryToBeViewed;
+    private final CategoryModel categoryModel;
+    private final ObservableList<Category> categoryToBeViewed;
     private static MovieManager mManager;
 
     public PmcModel() throws Exception {
@@ -42,9 +41,9 @@ public class PmcModel {
         return categoryModel;
     }
 
+    public void createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception{
+        Movie m = mManager.createMovie(name, fileLink, categories, website);
 
-    public void createMovie(String name, String fileLink, List<Category> categories) throws Exception{
-        Movie m = mManager.createMovie(name, fileLink, categories);
 
         moviesToBeViewed.add(m);
     }
@@ -55,7 +54,7 @@ public class PmcModel {
         moviesToBeViewed.addAll(mManager.getMovies());
     }
 
-    public ObservableList<Category> getCategories() throws Exception {
+    public ObservableList<Category> getCategories() {
         return categoryToBeViewed;
     }
 
@@ -65,6 +64,5 @@ public class PmcModel {
 
     public void updateDateOnMovie (Movie movie) throws Exception {
             mManager.updateDateOnMovie(movie);
-
     }
 }
