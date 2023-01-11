@@ -12,21 +12,24 @@ import java.io.IOException;
 import java.util.List;
 public class MovieManager {
 
-    private ICategoryDatabaseAccess categoryDAO;
-    private IMovieDatabaseAccess movieDAO;
-    private Searcher searcher;
+    private final ICategoryDatabaseAccess categoryDAO;
+    private final IMovieDatabaseAccess movieDAO;
+    private final Searcher searcher;
 
     public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
         categoryDAO = new CategoryDAO();
         searcher = new Searcher();
     }
+
     public List<Movie> getMovies() throws Exception{
         return movieDAO.getMovies();
     }
+
     public List<Category> getCategories() throws Exception{
         return categoryDAO.getCategories();
     }
+
     public Category createCategory(String category) throws Exception {
         return categoryDAO.createCategory(category);
     }
