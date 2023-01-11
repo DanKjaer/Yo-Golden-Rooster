@@ -13,6 +13,7 @@ import java.io.File;
 
 public class AddMovieController extends BaseController {
 
+    public TextField tfUrl;
     private PmcModel model;
     @FXML
     private Button btnSave, btnChoose, btnCancel;
@@ -44,7 +45,7 @@ public class AddMovieController extends BaseController {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
         ObservableList categories = lstCategory.getSelectionModel().getSelectedItems();
-        String website =
+        String website = tfUrl.getText();
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
         try{
