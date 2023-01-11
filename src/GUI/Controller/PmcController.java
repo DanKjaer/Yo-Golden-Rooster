@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -28,7 +29,6 @@ import java.util.Date;
 import java.util.Optional;
 
 public class PmcController extends BaseController {
-
     @FXML
     private TextField tfSearch;
     @FXML
@@ -44,7 +44,7 @@ public class PmcController extends BaseController {
     @FXML
     private ImageView imgMovie;
     @FXML
-    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating;
+    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating, txtRating;
     private PmcModel pmcModel;
     private String oldMovies = "";
     private boolean detectOldMovie;
