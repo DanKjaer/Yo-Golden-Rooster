@@ -1,6 +1,5 @@
 package BE;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,13 +7,11 @@ public class Movie {
     private int id;
     private String name;
     private float rating;
-    private String personalRating;
     private String filelink;
     private Date lastview;
-
     private String website;
+    private final List<Category> categories;
 
-    private List<Category> categories;
     public Movie(int id, String name, String filelink, List<Category> categories, String website) {
         this.id = id;
         this.name = name;
@@ -22,7 +19,6 @@ public class Movie {
         this.categories = categories;
         this.website = website;
     }
-
 
     public Movie(int id, String name, float rating, String filelink, Date lastview, List<Category> categories, String website) {
         this.id = id;
@@ -77,6 +73,7 @@ public class Movie {
     public void setLastview(Date lastview) {
         this.lastview = lastview;
     }
+
     public String getCategories() {
         String output = "";
         for(int i=0; i<categories.size(); i++) {

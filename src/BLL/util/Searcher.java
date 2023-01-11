@@ -40,7 +40,6 @@ public class Searcher {
         }catch(Exception e){
             return false;
         }
-
     }
 
     /**

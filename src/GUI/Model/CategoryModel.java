@@ -1,11 +1,9 @@
 package GUI.Model;
 
-
 import BE.Category;
 import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 
 public class CategoryModel {
     private final ObservableList<Category> categoriesToBeViewed;
@@ -13,7 +11,6 @@ public class CategoryModel {
 
     public CategoryModel() throws Exception {
         movieManager = new MovieManager();
-
         categoriesToBeViewed = FXCollections.observableArrayList();
         categoriesToBeViewed.addAll(movieManager.getCategories());
     }
