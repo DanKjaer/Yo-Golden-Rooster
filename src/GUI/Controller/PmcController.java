@@ -11,11 +11,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.awt.*;
 import java.io.File;
@@ -110,6 +113,7 @@ public class PmcController extends BaseController {
             alert.showAndWait();
         }
     }
+
 
     /**
      * Opens a new window to add a new movie.
@@ -284,9 +288,12 @@ public class PmcController extends BaseController {
     /**+
      * Removes the greyed out fields once you select a movie in the movie table, enabling rate, play and delete.
      */
-    @FXML
-    private void onClickMovie() {
+    public void onClickMovie(MouseEvent mouseEvent) throws IOException {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+        String imdbUrl = "https://www.imdb.com/title/tt0103776/?ref_=nv_sr_srsg_0";
+        Document doc = Jsoup.connect(imdbUrl).get();
+        String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
+        String poster = doc.select("img.ipc-image").attr("src");
 
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
@@ -295,7 +302,9 @@ public class PmcController extends BaseController {
         } else {
             txtLastView.setText("Never seen");
         }
-        txtCategory.setText(selectedMovie.getCategories().toString());
+        txtCategory.setText(selectedMovie.getCategories());
+        txtRating.setText(rating.substring(0,3));
+        imgMovie.setImage(new Image(poster));
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
