@@ -3,7 +3,11 @@ package BE;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * BE layer is accessed by all other classes, but cannot access any of them.
+ */
 public class Movie {
+
     private int id;
     private String name;
     private float rating;

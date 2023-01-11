@@ -7,6 +7,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.List;
 
+/**
+ * The methods of PmcModel gets called from the controller, and sends information onwards to the manager in BLL
+ * moviesToBeViewed is an ObservableList containing the movies of our private movie collection.
+ */
 public class PmcModel {
 
     private static ObservableList<Movie> moviesToBeViewed;
