@@ -11,7 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -24,7 +26,6 @@ import java.util.Date;
 import java.util.Optional;
 
 public class PmcController extends BaseController {
-
     @FXML
     private TextField tfSearch;
     @FXML
@@ -40,7 +41,7 @@ public class PmcController extends BaseController {
     @FXML
     private ImageView imgMovie;
     @FXML
-    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating;
+    private Text txtTitle, txtLastView, txtCategory, txtPersonalRating, txtRating;
     private PmcModel pmcModel;
     private String oldMovies = "";
     private boolean detectOldMovie;
@@ -88,12 +89,30 @@ public class PmcController extends BaseController {
 
             //Add to oldMovies string
             if (date.before(oldDate) && rating < 6.0) {
-                sb.append(title);
-                if (i < lstMovie.getItems().size() - 2) {
-                    sb.append(", ");
+                if(i == lstMovie.getItems().size()-1){
+                    sb.append(title);
+                }else{
+                    sb.append(title + ", ");
                 }
                 oldMovies = sb.toString();
                 detectOldMovie = true;
+            }
+        }
+    }
+
+    private void oldMovieList() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -2);
+        Date oldDate = calendar.getTime();
+
+        for (int i = 0; i < lstMovie.getItems().size(); i++) {
+            Movie movie = (Movie) lstMovie.getItems().get(i);
+            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
+            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
+            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
+
+            if (date.before(oldDate) && rating < 6.0) {
+                
             }
         }
     }
@@ -109,6 +128,7 @@ public class PmcController extends BaseController {
             alert.showAndWait();
         }
     }
+
 
     /**
      * Opens a new window to add a new movie.
@@ -283,9 +303,12 @@ public class PmcController extends BaseController {
     /**+
      * Removes the greyed out fields once you select a movie in the movie table, enabling rate, play and delete.
      */
-    @FXML
-    private void onClickMovie() {
+    public void onClickMovie(MouseEvent mouseEvent) throws IOException {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
+        //String URL = selectedMovie;
+        //Document doc = Jsoup.connect(URL).get();
+        //String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
+        //String poster = doc.select("img.ipc-image").attr("src");
 
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
