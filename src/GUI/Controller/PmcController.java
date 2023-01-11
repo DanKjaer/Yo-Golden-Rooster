@@ -92,12 +92,30 @@ public class PmcController extends BaseController {
 
             //Add to oldMovies string
             if (date.before(oldDate) && rating < 6.0) {
-                sb.append(title);
-                if (i < lstMovie.getItems().size() - 2) {
-                    sb.append(", ");
+                if(i == lstMovie.getItems().size()-1){
+                    sb.append(title);
+                }else{
+                    sb.append(title + ", ");
                 }
                 oldMovies = sb.toString();
                 detectOldMovie = true;
+            }
+        }
+    }
+
+    private void oldMovieList() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.YEAR, -2);
+        Date oldDate = calendar.getTime();
+
+        for (int i = 0; i < lstMovie.getItems().size(); i++) {
+            Movie movie = (Movie) lstMovie.getItems().get(i);
+            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
+            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
+            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
+
+            if (date.before(oldDate) && rating < 6.0) {
+                
             }
         }
     }
@@ -290,10 +308,10 @@ public class PmcController extends BaseController {
      */
     public void onClickMovie(MouseEvent mouseEvent) throws IOException {
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
-        String imdbUrl = "https://www.imdb.com/title/tt0103776/?ref_=nv_sr_srsg_0";
-        Document doc = Jsoup.connect(imdbUrl).get();
-        String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
-        String poster = doc.select("img.ipc-image").attr("src");
+        //String URL = selectedMovie;
+        //Document doc = Jsoup.connect(URL).get();
+        //String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
+        //String poster = doc.select("img.ipc-image").attr("src");
 
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
@@ -303,8 +321,8 @@ public class PmcController extends BaseController {
             txtLastView.setText("Never seen");
         }
         txtCategory.setText(selectedMovie.getCategories());
-        txtRating.setText(rating.substring(0,3));
-        imgMovie.setImage(new Image(poster));
+        //txtRating.setText(rating.substring(0,3));
+        //imgMovie.setImage(new Image(poster));
 
         btnRate.setDisable(false);
         btnPlay.setDisable(false);
