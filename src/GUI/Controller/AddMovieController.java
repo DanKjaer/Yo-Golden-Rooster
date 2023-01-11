@@ -44,10 +44,11 @@ public class AddMovieController extends BaseController {
         String name = tfTitle.getText();
         String filePath = tfFilePath.getText();
         ObservableList categories = lstCategory.getSelectionModel().getSelectedItems();
+        String website =
         Stage stage = (Stage) btnSave.getScene().getWindow();
         stage.close();
         try{
-            model.createMovie(name,filePath, categories);
+            model.createMovie(name,filePath, categories, website);
         } catch (Exception e) {
             e.printStackTrace();
             displayError(e);

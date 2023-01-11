@@ -12,22 +12,26 @@ public class Movie {
     private String filelink;
     private Date lastview;
 
+    private String website;
+
     private List<Category> categories;
-    public Movie(int id, String name, String filelink, List<Category> categories) {
+    public Movie(int id, String name, String filelink, List<Category> categories, String website) {
         this.id = id;
         this.name = name;
         this.filelink = filelink;
         this.categories = categories;
+        this.website = website;
     }
 
 
-    public Movie(int id, String name, float rating, String filelink, Date lastview, List<Category> categories) {
+    public Movie(int id, String name, float rating, String filelink, Date lastview, List<Category> categories, String website) {
         this.id = id;
         this.name = name;
         this.rating = rating;
         this.filelink = filelink;
         this.lastview = lastview;
         this.categories = categories;
+        this.website = website;
     }
 
     public int getId() {
@@ -83,5 +87,13 @@ public class Movie {
             }
         }
         return output;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

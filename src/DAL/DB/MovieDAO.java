@@ -49,9 +49,10 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 float rating = rs.getFloat("rating");
                 Date lastview = rs.getDate("lastview");
                 List<Category> categories = getMovieCategories(id, conn);
+                String website = rs.getString("website");
 
                 //Create Movie and add to list created in the beginning
-                Movie movie = new Movie(id,name,rating,filelink,lastview, categories);
+                Movie movie = new Movie(id,name,rating,filelink,lastview, categories, website);
                 allMovies.add(movie);
 
             }
@@ -70,8 +71,8 @@ public class MovieDAO implements IMovieDatabaseAccess {
      * @throws Exception - throws an exception if you could not create a movie.
      */
 
-    public Movie createMovie(String name, String fileLink, List<Category> categories) throws Exception{
-        String sql = "INSERT INTO Movie (name, fileLink, lastview)VALUES (?,?,GETDATE());";
+    public Movie createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception{
+        String sql = "INSERT INTO Movie (name, fileLink, lastview, url)VALUES (?,?,GETDATE(),?);";
         int id = 0;
 
         //Try with resources to connect to DB
@@ -80,7 +81,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
             statement.setString(1, name);
             statement.setString(2, fileLink);
-
+            statement.setString(3, website);
             statement.executeUpdate();
 
             ResultSet rSet = statement.getGeneratedKeys();
@@ -89,7 +90,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 id = rSet.getInt(1);
             }
             //Creates movie and connects it to categories
-            Movie movie = new Movie(id, name, fileLink, categories);
+            Movie movie = new Movie(id, name, fileLink, categories, website);
             for(Category category: categories){
                 addCategoryToMovie(category, movie, con);
             }

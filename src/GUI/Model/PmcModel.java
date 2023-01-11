@@ -41,8 +41,14 @@ public class PmcModel {
         return categoryModel;
     }
 
+<<<<<<< Updated upstream
     public void createMovie(String name, String fileLink, List<Category> categories) throws Exception{
         Movie m = mManager.createMovie(name, fileLink, categories);
+=======
+
+    public void createMovie(String name, String fileLink, List<Category> categories, String website) throws Exception{
+        Movie m = mManager.createMovie(name, fileLink, categories, website);
+>>>>>>> Stashed changes
 
         moviesToBeViewed.add(m);
     }
