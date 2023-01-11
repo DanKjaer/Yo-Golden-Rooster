@@ -24,9 +24,8 @@ import org.jsoup.nodes.Document;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+import java.util.List;
 
 public class PmcController extends BaseController {
 
@@ -57,7 +56,7 @@ public class PmcController extends BaseController {
             updateMovieList();
             search();
             disableButtons();
-            checkOldMovie();
+            oldMovieList();
             alertOldMovie();
         } catch (Exception e) {
             displayError(e);
@@ -77,39 +76,34 @@ public class PmcController extends BaseController {
     /**
      * Checks the DB when the program starts for old movies with less than 6.0 rating
      */
-    private void checkOldMovie() {
-        //Get this day 2 years ago
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.YEAR, -2);
-        Date oldDate = calendar.getTime();
+    private void checkOldMovie(List<Movie> list) {
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < lstMovie.getItems().size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
 
-            //Get last view, rating and title
-            Movie movie = (Movie) lstMovie.getItems().get(i);
-            Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
-            Float rating = (Float) clnPersonalRating.getCellObservableValue(movie).getValue();
-            String title = (String) clnTitle.getCellObservableValue(movie).getValue();
-
-            //Add to oldMovies string
-            if (date.before(oldDate) && rating < 6.0) {
-                if(i == lstMovie.getItems().size()-1){
-                    sb.append(title);
-                }else{
-                    sb.append(title + ", ");
-                }
-                oldMovies = sb.toString();
-                detectOldMovie = true;
+            //Add to oldMovies string and add a comma if it isn't the last one
+            if(i == list.size()-1){
+                sb.append(list.get(i).getName());
+            }else{
+                sb.append(list.get(i).getName() + ", ");
             }
+            oldMovies = sb.toString();
+            detectOldMovie = true;
         }
     }
 
+    /**
+     * Checks for old movies and adds them to a list
+     */
     private void oldMovieList() {
+
+        //Get this date 2 years ago
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.YEAR, -2);
         Date oldDate = calendar.getTime();
+        List<Movie> list = new ArrayList<>();
 
+        //Go through the list of movies and check for old movies shit ratings under 6
         for (int i = 0; i < lstMovie.getItems().size(); i++) {
             Movie movie = (Movie) lstMovie.getItems().get(i);
             Date date = (Date) clnLastView.getCellObservableValue(movie).getValue();
@@ -117,9 +111,10 @@ public class PmcController extends BaseController {
             String title = (String) clnTitle.getCellObservableValue(movie).getValue();
 
             if (date.before(oldDate) && rating < 6.0) {
-                
+                list.add(movie);
             }
         }
+        checkOldMovie(list);
     }
 
     /**
@@ -290,13 +285,20 @@ public class PmcController extends BaseController {
         }
     }
 
+    /**
+     * Adds extra info of the movie from the DB
+     * @param mouseEvent
+     * @throws IOException
+     */
     public void onClickMovie(MouseEvent mouseEvent) throws IOException {
+        //Gets the selected movie and scrapes imdb page for their rating and poster
         Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
         //String URL = selectedMovie;
         //Document doc = Jsoup.connect(URL).get();
         //String rating = doc.select("span.sc-7ab21ed2-1.eUYAaq").text();
         //String poster = doc.select("img.ipc-image").attr("src");
 
+        //Adds all the additional info
         txtTitle.setText(selectedMovie.getName());
         txtPersonalRating.setText(String.valueOf(selectedMovie.getRating()));
         if (selectedMovie.getLastview() != null) {
