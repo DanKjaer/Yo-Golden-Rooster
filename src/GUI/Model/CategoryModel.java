@@ -5,7 +5,6 @@ import BLL.MovieManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
 public class CategoryModel {
     private final ObservableList<Category> categoriesToBeViewed;
     private final MovieManager movieManager;
