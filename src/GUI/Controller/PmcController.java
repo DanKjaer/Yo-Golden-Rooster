@@ -24,10 +24,12 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.List;
 
 public class PmcController extends BaseController {
+    public Button btnImdb;
     @FXML
     private TextField tfSearch;
     @FXML
@@ -64,12 +66,14 @@ public class PmcController extends BaseController {
     }
 
     /**
-     * Disables the play, rate and delete button.
+     * Disables the play, rate and delete buttons and the rating textfield.
      */
     private void disableButtons() {
         btnPlay.setDisable(true);
         btnRate.setDisable(true);
         btnDelete.setDisable(true);
+        btnImdb.setDisable(true);
+        tfRating.setDisable(true);
     }
 
     /**
@@ -304,6 +308,7 @@ public class PmcController extends BaseController {
      * Adds extra info of the movie from the DB
      */
     public void onClickMovie() {
+        if (lstMovie.getSelectionModel().getSelectedItem() == null) return;
         try {
             //Gets the selected movie and scrapes imdb page for their rating and poster
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
@@ -320,10 +325,12 @@ public class PmcController extends BaseController {
             txtRating.setText(rating.substring(0,3));
             imgMovie.setImage(new Image(poster));
 
-            //Enables the rate, play and delete buttons
+            //Enables the rate, play and delete buttons and the textfield for rating
             btnRate.setDisable(false);
             btnPlay.setDisable(false);
             btnDelete.setDisable(false);
+            btnImdb.setDisable(false);
+            tfRating.setDisable(false);
         } catch (IOException e) {
             displayError(e);
             e.printStackTrace();
@@ -352,8 +359,8 @@ public class PmcController extends BaseController {
     public void handleImdb() {
         try {
             Movie selectedMovie = (Movie) lstMovie.getSelectionModel().getSelectedItem();
-            Desktop.getDesktop().browse(URI.create(selectedMovie.getWebsite()));
-        } catch (IOException e) {
+            Desktop.getDesktop().browse(new URI(selectedMovie.getWebsite()));
+        } catch (IOException | URISyntaxException e) {
             displayError(e);
             e.printStackTrace();
         }
