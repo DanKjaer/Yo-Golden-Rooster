@@ -16,14 +16,12 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
     public MovieDAO() throws IOException {
         dbCon = new DatabaseConnector();
-
     }
 
     /**
      * Retrieves movies from database and makes a list of them
      * @return an arraylist of movies from the database
      * @throws SQLException - throws an exception, if there is a communication mishap with the database.
-
      */
     @Override
     public List<Movie> getMovies() throws SQLException {
@@ -54,7 +52,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
                 //Create Movie and add to list created in the beginning
                 Movie movie = new Movie(id,name,rating,filelink,lastview, categories, website);
                 allMovies.add(movie);
-
             }
         } catch (Exception e){
             throw new SQLException("Could not get movies from database", e);
@@ -67,7 +64,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
      * @param name - the name of the movie
      * @param fileLink - the local file path, used to find the mp4 and mpeg.
      * @param categories - the categories of the movie.
-     * @return newly created movie
+     * @return - newly created movie
      * @throws Exception - throws an exception if you could not create a movie.
      */
 
@@ -148,9 +145,11 @@ public class MovieDAO implements IMovieDatabaseAccess {
     @Override
     public void rateMovie(Movie ratedMovie, float rating) throws Exception {
         try (Connection conn = dbCon.getConnection()) {
+            //Prepare SQL statement
             String sql = "UPDATE Movie SET rating = ? WHERE id = ?;";
             PreparedStatement stmt = conn.prepareStatement(sql);
 
+            //Load data into SQL statement, from parameters
             stmt.setFloat(1, rating);
             stmt.setInt(2, ratedMovie.getId());
 
@@ -175,7 +174,6 @@ public class MovieDAO implements IMovieDatabaseAccess {
 
         try(Connection con = dbCon.getConnection()){
             PreparedStatement statement = con.prepareStatement(sql);
-
             statement.executeUpdate();
         }
         catch(Exception e){
@@ -213,6 +211,7 @@ public class MovieDAO implements IMovieDatabaseAccess {
     private List<Category> getMovieCategories(int movieId, Connection con) throws SQLException {
         //Makes an arraylist with movie categories.
         ArrayList<Category> movieCategories = new ArrayList<>();
+
         //An SQL string that selects everything from category, and searches for a specified
         //Id in category and Movie, then joins it in the CatMovie table.
         String sql = "SELECT Category.* FROM CatMovie JOIN Category ON CategoryId = Category.Id WHERE movieId =?;";

@@ -27,15 +27,30 @@ public class DatabaseConnector {
     }
 
     /**
+     * Method to load the config file and is called in the methods that load the different information.
+     * @return - config file as a Property type
+     * @throws IOException
+     */
+    private Properties getConfigFile() throws IOException {
+        //Create instance of properties
+        Properties properties = new Properties();
+
+        //Create instance of fileInputStream with the resource
+        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
+
+        //Load resource into properties variable
+        properties.load(fileInputStream);
+        return properties;
+    }
+
+    /**
      * Gets the server IP from the config file.
      * @return - returns server IP as String.
      * @throws IOException - throws an exception, if there is a problem with the config file.
      */
     private String getServer() throws IOException {
-        Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
-        properties.load(fileInputStream);
-        String server = properties.getProperty("ServerIP");
+        //Take the resource we want and return it
+        String server = getConfigFile().getProperty("ServerIP");
         return server;
     }
 
@@ -45,10 +60,8 @@ public class DatabaseConnector {
      * @throws IOException - throws an exception, if there is a problem with the config file.
      */
     private String getDatabase() throws IOException {
-        Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
-        properties.load(fileInputStream);
-        String database = properties.getProperty("DB");
+        //Take the resource we want and return it
+        String database = getConfigFile().getProperty("DB");
         return database;
     }
 
@@ -58,10 +71,8 @@ public class DatabaseConnector {
      * @throws IOException - throws an exception, if there is a problem with the config file.
      */
     private String getUsername() throws IOException {
-        Properties properties = new Properties();
-        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
-        properties.load(fileInputStream);
-        String username = properties.getProperty("Username");
+        //Take the resource we want and return it
+        String username = getConfigFile().getProperty("Username");
         return username;
     }
 
@@ -71,12 +82,8 @@ public class DatabaseConnector {
      * @throws IOException - throws an exception, if there is a problem with the config file.
      */
     private String getPassword() throws IOException {
-        //Create instance of properties
-        Properties properties = new Properties();
-        //Create instance of fileInputStream
-        FileInputStream fileInputStream = new FileInputStream("Resources/config.properties");
-        properties.load(fileInputStream);
-        String password = properties.getProperty("Password");
+        //Take the resource we want and return it
+        String password = getConfigFile().getProperty("Password");
         return password;
     }
 

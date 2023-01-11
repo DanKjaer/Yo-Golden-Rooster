@@ -26,12 +26,13 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
 
         //Try with resources to connect to DB
         try (Connection conn = dbCon.getConnection()){
-
+            //Prepare SQL statement.
             String sql = "SELECT * FROM Category;";
 
             Statement statement = conn.createStatement();
             ResultSet rSet = statement.executeQuery(sql);
 
+            //While loop to run through every row, and read the data.
             while(rSet.next()){
                 int id = rSet.getInt("id");
                 String name = rSet.getString("name");
@@ -48,12 +49,12 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
     /**
      * this method contains an SQL string which is used to add new category to the category table.
      * @param category - category is a table name in our SQL database.
-     * @return mCat - returns a movie category
+     * @return movieCategory - returns a movie category
      * @throws SQLException - throws an exception, if there is a communication mishap with the database.
      */
     public Category createCategory(String category) throws SQLException {
+        //Prepare SQL statement, and a int variable to hold the new ID.
         String sql = "INSERT INTO Category (name) VALUES (?);";
-
         int id = 0;
         //Try with resources to connect to the database.
         try(Connection con = dbCon.getConnection()) {
@@ -72,9 +73,8 @@ public class CategoryDAO implements ICategoryDatabaseAccess {
             e.printStackTrace();
             throw new SQLException("Could not create category", e);
         }
-        Category mCat = new Category(id, category);
-        return mCat;
-
+        Category movieCategory = new Category(id, category);
+        return movieCategory;
     }
 
     /**
