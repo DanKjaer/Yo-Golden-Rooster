@@ -29,7 +29,6 @@ import java.util.*;
 import java.util.List;
 
 public class PmcController extends BaseController {
-    public Button btnImdb;
     @FXML
     private TextField tfSearch;
     @FXML
@@ -39,7 +38,7 @@ public class PmcController extends BaseController {
     @FXML
     private TableColumn clnPersonalRating;
     @FXML
-    private Button btnPlay, btnRate, btnDelete;
+    private Button btnPlay, btnRate, btnDelete, btnImdb;
     @FXML
     private TextField tfRating;
     @FXML
