@@ -77,8 +77,7 @@ public class PmcController extends BaseController {
     }
 
     /**
-     * Checks the DB when the program starts for old movies with less than 6.0 rating,
-     * and prepares a string to be show to the user if any is found.
+     * Prepares a string to be shown to the user with the list of old movies.
      */
     private void checkOldMovie(List<Movie> list) {
         StringBuilder sb = new StringBuilder();
