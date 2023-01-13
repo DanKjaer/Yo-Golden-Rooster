@@ -90,7 +90,9 @@ public class AddMovieController extends BaseController {
             );
             //Put selected file into textfield
             File file = fileChooser.showOpenDialog(stage);
-            tfFilePath.setText(file.getPath());
+            if(file != null){
+                tfFilePath.setText(file.getPath());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             displayError(e);
