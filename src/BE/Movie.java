@@ -38,44 +38,20 @@ public class Movie {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getFilelink() {
         return filelink;
     }
 
-    public void setFilelink(String filelink) {
-        if (filelink.endsWith(".mp4") || filelink.endsWith(".mpeg4")) {
-            this.filelink = filelink;
-        }
-    }
-
     public float getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
-        if (rating >= 1 && rating <= 10) {
-            this.rating = rating;
-        }
-    }
-
     public Date getLastview() {
         return lastview;
-    }
-
-    public void setLastview(Date lastview) {
-        this.lastview = lastview;
     }
 
     public String getCategories() {
@@ -92,9 +68,5 @@ public class Movie {
 
     public String getWebsite() {
         return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
     }
 }
