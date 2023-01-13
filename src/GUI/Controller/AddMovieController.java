@@ -3,10 +3,7 @@ package GUI.Controller;
 import GUI.Model.PmcModel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -48,9 +45,17 @@ public class AddMovieController extends BaseController {
         ObservableList categories = lstCategory.getSelectionModel().getSelectedItems();
         String website = tfUrl.getText();
         Stage stage = (Stage) btnSave.getScene().getWindow();
-        stage.close();
+        //Checks if the url goes to a movie on imdb.
         try{
-            model.createMovie(name,filePath, categories, website);
+            if (tfUrl.getText().contains("https://www.imdb.com/title/tt")) {
+                model.createMovie(name, filePath, categories, website);
+                stage.close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("URL Error");
+                alert.setHeaderText("The given url does not go to a movie on IMDb.");
+                alert.showAndWait();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             displayError(e);
@@ -85,7 +90,9 @@ public class AddMovieController extends BaseController {
             );
             //Put selected file into textfield
             File file = fileChooser.showOpenDialog(stage);
-            tfFilePath.setText(file.getPath());
+            if(file != null){
+                tfFilePath.setText(file.getPath());
+            }
         } catch (Exception e) {
             e.printStackTrace();
             displayError(e);
